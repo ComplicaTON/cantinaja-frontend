@@ -1,5 +1,12 @@
 const feature = document.getElementById("feature-cadastrar-item");
 
+/********************************************************************
+ * Renderização da interface
+ *
+ * Toda a interface é criada dinamicamente via JavaScript.
+ ********************************************************************/
+
+
 feature.innerHTML = `
 <div class="row justify-content-center">
 
@@ -27,7 +34,7 @@ feature.innerHTML = `
 
             <div class="card-body p-4">
 
-                <form id="form-cadastrar-item">
+                <form id="form-cadastrar-item" novalidate>
 
                     <div class="mb-4">
 
@@ -47,11 +54,13 @@ feature.innerHTML = `
                             type="text"
                             class="form-control form-control-lg"
                             placeholder="Ex.: Coxinha de Frango"
-                            required
                         >
 
+                        <div class="invalid-feedback">
+                            Informe o nome do item.
+                        </div>
+
                     </div>
-                        
 
                     <div class="mb-4">
 
@@ -73,8 +82,11 @@ feature.innerHTML = `
                             placeholder="0,00"
                             step="0.01"
                             min="0"
-                            required
                         >
+
+                        <div class="invalid-feedback">
+                            Informe um preço válido.
+                        </div>
 
                     </div>
 
@@ -99,3 +111,72 @@ feature.innerHTML = `
 
 </div>
 `;
+
+// task - 2 Seleção dos elementos da página
+ 
+
+const formulario = document.getElementById("form-cadastrar-item");
+
+const nome = document.getElementById("nome");
+
+const preco = document.getElementById("preco");
+
+formulario.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    let formularioValido = true;
+
+    // ===== Validação Nome =====
+
+    if (nome.value.trim() === "") {
+
+        nome.classList.add("is-invalid");
+
+        formularioValido = false;
+
+    } else {
+
+        nome.classList.remove("is-invalid");
+
+    }
+
+    // ===== Validação Preço =====
+
+    if (preco.value.trim() === "" || Number(preco.value) <= 0) {
+
+        preco.classList.add("is-invalid");
+
+        formularioValido = false;
+
+    } else {
+
+        preco.classList.remove("is-invalid");
+
+    }
+
+
+
+});
+
+// Remove o erro quando o usuário digita
+
+nome.addEventListener("input", function () {
+
+    if (nome.value.trim() !== "") {
+
+        nome.classList.remove("is-invalid");
+
+    }
+
+});
+
+preco.addEventListener("input", function () {
+
+    if (preco.value.trim() !== "" && Number(preco.value) > 0) {
+
+        preco.classList.remove("is-invalid");
+
+    }
+
+});
