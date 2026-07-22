@@ -1,0 +1,10 @@
+:root {
+  --bs-primary-rgb: 255, 155, 69;
+  --bs-secondary-rgb: 213, 69, 27;
+  --bs-light-rgb: 244, 231, 225;
+  --bs-dark-rgb: 82, 28, 13;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+}
