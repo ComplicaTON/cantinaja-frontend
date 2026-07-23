@@ -1,4 +1,4 @@
-import { dom_press } from "../../../../shared/utils.js";
+import { renderizarHTML } from "../../../../shared/utils.js";
 
 const CARD_HTML = 
         `<div class="d-flex flex-column flex-md-row gap-3">
@@ -26,4 +26,4 @@ const CARD_HTML =
         
         </div>`
 
-dom_press(CARD_HTML, 'CARD_RESUMO')
+renderizarHTML(CARD_HTML, 'CARD_RESUMO')
