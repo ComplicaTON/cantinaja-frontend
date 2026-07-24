@@ -1,6 +1,7 @@
 import { APIMock } from "../../../../../lib/config.js";
 
 export async function carregarTransacoes(alunoId) {
+  // Chamada da API com o método GET do endpoint "transacoes"
   const resposta = await fetch(`${APIMock.carteira}/api/carteiras/${alunoId}/transacoes`);
   const transacoesJson = await resposta.json();
 
@@ -9,6 +10,7 @@ export async function carregarTransacoes(alunoId) {
   let totalTransacoes = 0
 
  transacoesJson.forEach(transacao => {
+    // Contagem dos valores de cada transação
     if (transacao.tipo === "DEBITO") {
         totalDebito += transacao.valor
     }
