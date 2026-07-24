@@ -2,24 +2,24 @@ import { renderizarHtml } from "../../../../shared/utils.js";
 import { carregarTransacoes } from "./service/api.js";
 
 const CARD_HTML = 
-`<div class="d-flex flex-column flex-md-row gap-3">
+`<div class="d-flex flex-column flex-lg-row gap-3">
 
   <div class="card bg-primary border-0 shadow-sm flex-fill">
-    <div class="card-body p-4">
+    <div class="card-body p-3 p-md-4">
       <h6 class="card-title text-dark text-uppercase fw-bold mb-2">Total Recarregado</h6>
       <p class="fs-2 fw-semibold text-dark m-0" id="total-recarregado">R$ 0</p>
     </div>
   </div>
 
   <div class="card bg-primary border-0 shadow-sm flex-fill">
-    <div class="card-body p-4">
+    <div class="card-body p-3 p-md-4">
       <h6 class="card-title text-dark text-uppercase fw-bold mb-2">Total Gasto</h6>
       <p class="fs-2 fw-semibold text-dark m-0" id="total-gasto">R$ 0</p>
     </div>
   </div>
 
   <div class="card bg-primary border-0 shadow-sm flex-fill">
-    <div class="card-body p-4">
+    <div class="card-body p-3 p-md-4">
       <h6 class="card-title text-dark text-uppercase fw-bold mb-2">Quantidade de Transações</h6>
       <p class="fs-2 fw-semibold text-dark m-0" id="quantidade-transacoes">0</p>
     </div>
