@@ -76,11 +76,11 @@
       "type": "http",
       "documentation": "",
       "method": "get",
-      "endpoint": "api/carteiras/:alunoId/transacoes",
+      "endpoint": "api/carteiras/1/transacoes",
       "responses": [
         {
           "uuid": "3a832961-b90e-4dc0-b568-b06fc009fbd7",
-          "body": "[\n  {\n    \"id\": 3,\n    \"tipo\": \"DEBITO\",\n    \"valor\": 12.50,\n    \"dataHora\": \"2026-07-17T10:32:00\"\n  },\n  {\n    \"id\": 2,\n    \"tipo\": \"RECARGA\",\n    \"valor\": 20.00,\n    \"dataHora\": \"2026-07-16T09:10:00\"\n  }\n]",
+          "body": "[\n  {\n    \"id\": 3,\n    \"tipo\": \"DEBITO\",\n    \"valor\": 12.50,\n    \"dataHora\": \"2026-07-17T10:32:00\"\n  },\n  {\n    \"id\": 2,\n    \"tipo\": \"RECARGA\",\n    \"valor\": 20.00,\n    \"dataHora\": \"2026-07-16T09:10:00\"\n  },\n  {\n    \"id\": 2,\n    \"tipo\": \"RECARGA\",\n    \"valor\": 50.00,\n    \"dataHora\": \"2026-07-16T09:10:00\"\n  },\n  {\n    \"id\": 2,\n    \"tipo\": \"DEBITO\",\n    \"valor\": 50.00,\n    \"dataHora\": \"2026-07-16T09:10:00\"\n  }\n]",
           "latency": 0,
           "statusCode": 200,
           "label": "",
