@@ -52,19 +52,22 @@ O projeto segue o modelo **feature-based** (organização por funcionalidade de 
 src/
   app/                # Pontos de entrada (páginas/rotas) da aplicação
     index.html
-    wallet/
+    carteira/
+      index.html
+    cardapio/
       index.html
   features/           # Regras de negócio e telas agrupadas por domínio
-    wallet/
-      balance/
-      recharge/
-      statement/
-    menu/
-      item-availability/
-      item-creating/
-      item-editing/
-      item-list/
-shared/                # Código reaproveitável entre múltiplas features
+    carteira/
+      saldo/
+      recarregar/
+      extrato/
+      resumo/
+    cardapio/
+      listar-itens/
+      cadastrar-item/
+      editar-item/
+      alterar-disponibilidade/
+shared/                # Código reaproveitável entre múltiplas features (navbar, utils)
 lib/                   # Integrações/wrappers de bibliotecas externas e config
 styles/                # Tokens de design, variáveis globais e overrides do Bootstrap
 ```
@@ -75,7 +78,7 @@ Contém os pontos de entrada navegáveis da aplicação (uma pasta por rota/pág
 
 ### 2.2 `src/features/<dominio>/<subfeature>`
 
-Cada domínio de negócio (ex.: `wallet`) tem subpastas por caso de uso (`balance`, `recharge`, `statement`). Uma subfeature deve conter tudo que só ela usa: markup/partials, scripts e estilos específicos. Regra prática: **se um arquivo é usado por só uma feature, ele mora dentro da feature; se é usado por duas ou mais, sobe para `shared/`.**
+Cada domínio de negócio (ex.: `carteira`) tem subpastas por caso de uso (`saldo`, `recarregar`, `extrato`, `resumo`). Uma subfeature deve conter tudo que só ela usa: markup/partials, scripts e estilos específicos. Regra prática: **se um arquivo é usado por só uma feature, ele mora dentro da feature; se é usado por duas ou mais, sobe para `shared/`.**
 
 ### 2.3 `shared/`
 
@@ -101,13 +104,13 @@ Uma camada só pode importar de si mesma ou das camadas à direita. `shared/` e 
 
 ## 3. Padrões de escrita de código
 
-- **Idioma**: nomes de arquivos, pastas, classes CSS customizadas e variáveis em **inglês**; textos visíveis ao usuário em **pt-br** (`<html lang="pt-br">`).
-- **Nomenclatura de pastas/arquivos**: `kebab-case` (ex.: `wallet-recharge`, `balance-card.html`).
-- **Nomenclatura de classes CSS customizadas**: prefixo do projeto + BEM leve, para não colidir com utilitários do Bootstrap. Ex.: `cj-balance-card`, `cj-balance-card__title`, `cj-balance-card--highlighted`.
+- **Idioma**: nomes de arquivos, pastas, subfeatures, variáveis e funções em **português** — o mesmo idioma do domínio usado no backend (ex.: `recarregar/`, `saldo/`, `renderizarHtml`). Termos técnicos consagrados permanecem em inglês (`shared`, `lib`, `app`, `fetch`, `index.html`). Textos visíveis ao usuário em **pt-br** (`<html lang="pt-br">`).
+- **Nomenclatura de pastas/arquivos**: `kebab-case` (ex.: `cadastrar-item`, `card-saldo.html`).
+- **Nomenclatura de classes CSS customizadas**: prefixo do projeto + BEM leve, para não colidir com utilitários do Bootstrap. Ex.: `cj-card-saldo`, `cj-card-saldo__titulo`, `cj-card-saldo--destaque`.
 - **HTML**: indentação de 2 espaços, atributos de `<link>`/`<script>` quebrados em múltiplas linhas quando a tag ficar longa (ver exemplo da seção 1), sempre `lang`, `charset` e `viewport` no `<head>`.
 - **Preferir utilitários do Bootstrap** (`d-flex`, `gap-3`, `mt-4`, `text-muted`, etc.) a CSS customizado. Só criar classe própria quando o utilitário não cobrir o caso.
 - **Ícones**: usar apenas Font Awesome, com sufixo semântico, nunca ícone "solto" sem `aria-label` quando não houver texto ao lado (acessibilidade).
-- **Uma feature, uma responsabilidade**: uma subfeature (`recharge`, `statement`, etc.) não deve fazer merge de responsabilidades de outra. Se um componente passa a ser usado por outra feature, mover para `shared/`.
+- **Uma feature, uma responsabilidade**: uma subfeature (`recarregar`, `extrato`, etc.) não deve fazer merge de responsabilidades de outra. Se um componente passa a ser usado por outra feature, mover para `shared/`.
 - **Sem duplicação de setup de página**: qualquer `<head>` novo deve reaproveitar exatamente as tags descritas na seção 1 (mesma versão de Bootstrap, mesmo kit do Font Awesome, mesma URL da Inter) para manter consistência visual e cache de CDN entre páginas.
 
 ---
@@ -132,16 +135,19 @@ Recomendações de aplicação:
 - Estados de erro reaproveitam `#D5451B`; não introduzir um vermelho fora da paleta.
 - Evitar introduzir cores fora dessas quatro. Tons intermediários (tints/shades) só via `color-mix()`/opacidade das cores acima, quando necessário para estados `:hover`/`:disabled`.
 
-Sugestão de mapeamento para variáveis do Bootstrap (`styles/`):
+Mapeamento para as variáveis do Bootstrap (já aplicado em `styles/styles.css`). As versões `-rgb` alimentam os **utilitários** (`bg-primary`, `bg-dark`, `text-*`):
 
 ```css
 :root {
-  --bs-primary: #ff9b45;
-  --bs-secondary: #d5451b;
-  --bs-light: #f4e7e1;
-  --bs-dark: #521c0d;
+  --bs-primary: #ff9b45;      --bs-primary-rgb: 255, 155, 69;
+  --bs-secondary: #d5451b;    --bs-secondary-rgb: 213, 69, 27;
+  --bs-light: #f4e7e1;        --bs-light-rgb: 244, 231, 225;
+  --bs-dark: #521c0d;         --bs-dark-rgb: 82, 28, 13;
+  --bs-body-bg: #f4e7e1;      --bs-body-color: #521c0d;
 }
 ```
+
+> ⚠️ **Pega-ratão do Bootstrap 5.3:** as classes `.btn-*` **não** leem `--bs-primary` — a cor do botão é "compilada" em variáveis próprias (`--bs-btn-bg`, etc.). Por isso, mudar `--bs-primary` **não** recolore os botões. Para o botão usar a paleta, `styles/styles.css` sobrescreve as variáveis do próprio botão (`.btn-primary { --bs-btn-bg: #ff9b45; ... }`). Já os **utilitários** (`bg-dark` da navbar, `bg-primary`, `text-primary`) respeitam as `-rgb` do `:root` normalmente.
 
 ### 4.2 Tipografia — Inter
 
@@ -205,25 +211,32 @@ Regras práticas:
 
 O menu principal da aplicação é sempre o componente **Navbar** nativo do Bootstrap (`.navbar`), sem substituições por menus customizados.
 
+Markup de referência (o componente real está em `shared/navbar.js`; ver seção 5). A cor vem da **paleta**, não de um hex cravado: `bg-dark` usa a variável `--bs-dark-rgb` de `styles/styles.css` (= `#521C0D`), e `data-bs-theme="dark"` deixa texto/ícones/toggler claros automaticamente.
+
 ```html
-<nav class="navbar navbar-expand-lg" style="background-color: #521C0D;">
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
   <div class="container">
-    <a class="navbar-brand text-white fw-semibold" href="/">Cantinaja</a>
+    <a class="navbar-brand fw-semibold" href="/src/app/index.html">CantinaJá</a>
     <button
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
-      data-bs-target="#navbarMain"
-      aria-controls="navbarMain"
+      data-bs-target="#navbarPrincipal"
+      aria-controls="navbarPrincipal"
       aria-expanded="false"
       aria-label="Alternar navegação"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarMain">
+    <div class="collapse navbar-collapse" id="navbarPrincipal">
       <ul class="navbar-nav ms-auto gap-2">
         <li class="nav-item">
-          <a class="nav-link text-white" href="/wallet"
+          <a class="nav-link" href="/src/app/cardapio/index.html"
+            ><i class="fa-solid fa-utensils me-1"></i>Cardápio</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/src/app/carteira/index.html"
             ><i class="fa-solid fa-wallet me-1"></i>Carteira</a
           >
         </li>
@@ -235,14 +248,129 @@ O menu principal da aplicação é sempre o componente **Navbar** nativo do Boot
 
 Diretrizes:
 
-- Fundo da navbar em `#521C0D` (Dark), texto/ícones em branco ou `#F4E7E1`.
+- Fundo da navbar na cor **Dark** da paleta (`#521C0D`) — via classe **`bg-dark`** + `data-bs-theme="dark"`, que puxa a cor de `--bs-dark-rgb` (`styles/styles.css`). **Não** cravar `style="background-color: #521C0D"`: se a paleta mudar, a navbar deve acompanhar sozinha.
 - Usar sempre `navbar-expand-lg` (colapsa em telas menores que `lg`) com `navbar-toggler` para mobile.
 - Itens de menu com ícone Font Awesome + texto, nunca só ícone (exceto ações secundárias como perfil/notificação, que precisam de `aria-label`).
 - Nenhuma feature deve renderizar seu próprio menu de navegação — a navbar é montada uma vez em `src/app` e as features só populam conteúdo abaixo dela.
 
 ---
 
-## 5. Checklist rápido para nova página/feature
+## 5. Montando a tela: `renderizarHtml`, a navbar e as seções de feature
+
+Este projeto **não usa `fetch` de arquivos `.html`** para montar a tela. O padrão é: cada pedaço de UI é uma **string de HTML** exportada por um módulo, e o helper `renderizarHtml` (em `shared/utils.js`) injeta essa string dentro de um elemento da página pelo `id`.
+
+### 5.1 O helper `renderizarHtml`
+
+```js
+// shared/utils.js
+export function renderizarHtml(html, idPrincipal) { ... }
+```
+
+- **`html`**: uma string com o HTML a inserir (ex.: a navbar, um card).
+- **`idPrincipal`**: o `id` do elemento que vai **receber** esse HTML.
+- Comportamento: insere o HTML **no início** do elemento (`insertAdjacentHTML("afterbegin")`). Se o `id` não existir na página, ele apenas avisa no console (`console.warn`) e não faz nada — por isso o elemento-alvo precisa existir no HTML da casca **antes** do script rodar.
+
+### 5.2 A casca injeta a navbar (padrão de toda página `src/app/**/index.html`)
+
+A navbar é um componente compartilhado (`shared/navbar.js`) que exporta a string `navbarHtml`. A casca (mantida pelos instrutores) declara um contêiner vazio, injeta a navbar nele e deixa um `<main>` **vazio** como área de trabalho — é aí que os devs montam a tela:
+
+```html
+<body>
+  <!-- 1) contêiner-alvo da navbar (mantido pela casca/instrutor) -->
+  <div id="navbar"></div>
+
+  <!-- 2) área de trabalho: VAZIA. Cada feature cria a sua <section> aqui dentro. -->
+  <main class="container my-4">
+    <!-- as features desta página injetam aqui (ver 5.3) -->
+  </main>
+
+  <script src="…bootstrap.bundle.min.js" …></script>
+
+  <!-- 3) módulo da casca: importa o helper e a navbar, e injeta a navbar -->
+  <script type="module">
+    import { renderizarHtml } from "/shared/utils.js";
+    import { navbarHtml } from "/shared/navbar.js";
+
+    renderizarHtml(navbarHtml, "navbar");
+  </script>
+</body>
+```
+
+> A casca **não** vem com as seções de feature prontas — isso é trabalho do dev (seção 5.3). A casca entrega só a navbar + o `<main>` vazio.
+
+> **Importante:** os scripts são **ES modules** (`<script type="module">` + `import`/`export`). Por isso o projeto **precisa ser servido por um servidor** (Live Server, ou `npx serve` na raiz) — abrir o arquivo direto (`file://`) faz o `import` falhar. Sempre sirva pela **raiz do repositório**, para os caminhos absolutos (`/shared/...`, `/src/app/...`) funcionarem.
+
+### 5.2.1 Abordagem alternativa com `fetch` (didática) e por que preferimos o módulo
+
+Existe uma forma clássica de montar a navbar: guardar o markup num arquivo `.html` separado (`shared/navbar.html`) e **buscá-lo em tempo de execução** com `fetch`. Mantemos esse arquivo no repositório **só para fins didáticos** — é bom conhecer a técnica:
+
+```js
+// Alternativa com fetch — NÃO é o padrão do projeto, mas funciona:
+fetch("/shared/navbar.html")
+  .then((resposta) => resposta.text())
+  .then((html) => renderizarHtml(html, "navbar"));
+```
+
+**Por que o projeto usa `shared/navbar.js` (string em módulo) no lugar do `fetch`:**
+
+- **É uma requisição de rede a menos.** O `fetch` faz uma **chamada HTTP extra** para baixar o `.html` toda vez que a página abre; o `import` do módulo entrega o markup direto, sem ida ao servidor.
+- **É síncrono e previsível.** O `fetch` é **assíncrono** (`.then`/`await`): a navbar aparece "depois", e você precisa cuidar da ordem e de possíveis falhas de rede. O `import` resolve o módulo antes do código rodar — a string já está lá.
+- **Falha cedo e claro.** Se você errar o caminho do `import`, o erro aparece **na hora**, no console, apontando o módulo. Um `fetch` que falha (404, offline) só quebra em runtime, silenciosamente, e some com a navbar sem dizer o porquê.
+- **Combina com o resto do código.** Todo o projeto já usa ES modules (`export`/`import`) em `lib/` e `shared/`. Usar módulo para a navbar mantém **um padrão só** — sem misturar "às vezes fetch, às vezes import".
+
+Regra prática: **use `shared/navbar.js` (módulo).** O `shared/navbar.html` + `fetch` fica como material de estudo; se um dia mexer na navbar, mexa no `navbar.js` (o `.html` é só espelho didático).
+
+### 5.3 Uma feature cria a própria seção e injeta o conteúdo
+
+Cada feature é responsável por **criar a sua `<section>`** dentro do `<main>` da casca e **injetar** a própria UI nela. Passo a passo (exemplo do saldo, FED-006):
+
+**1) A feature cria o seu ponto de ancoragem** dentro do `<main>` da casca (uma `<section>` com um `id` só dela):
+
+```html
+<!-- dentro do <main> da casca (src/app/carteira/index.html) -->
+<section id="feature-saldo" class="my-5"></section>
+```
+
+**2) A feature injeta o conteúdo nessa seção** pelo seu próprio script:
+
+```js
+// src/features/carteira/saldo/saldo.js
+import { renderizarHtml } from "/shared/utils.js";
+
+const saldoHtml = `
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Meu saldo</h4>
+      <p class="fs-2 fw-semibold" id="valor-saldo">—</p>
+    </div>
+  </div>
+`;
+
+renderizarHtml(saldoHtml, "feature-saldo");   // injeta na <section id="feature-saldo">
+// ...depois o fetch preenche #valor-saldo
+```
+
+**3) A casca carrega o script da feature** (uma linha por história, combinada na squad):
+
+```html
+<script type="module" src="/src/features/carteira/saldo/saldo.js"></script>
+```
+
+> Combinem entre a squad os `id`s das seções e a ordem em que aparecem no `<main>` — é isso que define o layout da página.
+
+Regras que decorrem disso:
+
+- **A feature nunca cria página inteira** (nada de `<html>`/`<head>`/`<body>`). Ela entrega **fragmento + script** e injeta na sua seção.
+- **A feature nunca mexe na navbar nem em outra seção** — só na `id` reservada para ela. Isso é o que permite quatro devs trabalharem na mesma página sem conflito.
+- **Componente usado por 2+ features** (ex.: um card de valor monetário usado por saldo **e** resumo) sobe para `shared/` e é importado pelas duas, seguindo a regra de dependência da seção 2.6.
+
+### 5.4 `shared/navbar.js` é read-only para os times
+
+Alterar a navbar muda **todas as páginas**. Por isso `shared/navbar.js` (como todo `shared/` e `lib/`) só muda com revisão de instrutor. Se faltar um link ou algo nela, isso é tarefa de manutenção do compartilhado, não de uma história de feature.
+
+---
+
+## 6. Checklist rápido para nova página/feature
 
 - [ ] `<head>` segue exatamente o padrão da seção 1 (mesmas versões de Bootstrap/Font Awesome/Inter).
 - [ ] Página vive em `src/app/<rota>/index.html` e delega conteúdo de negócio para `src/features/...`.
@@ -252,3 +380,6 @@ Diretrizes:
 - [ ] Ícones são Font Awesome, com `aria-label` quando não houver texto.
 - [ ] Espaçamentos usam a escala da seção 4.4 (utilitários Bootstrap).
 - [ ] Menu de navegação é a Navbar do Bootstrap, não um componente customizado.
+- [ ] A casca injeta a navbar com `renderizarHtml(navbarHtml, "navbar")` (seção 5.2).
+- [ ] Cada feature injeta seu HTML só na seção reservada a ela, via `renderizarHtml` (seção 5.3).
+- [ ] Projeto servido pela **raiz** com Live Server / `npx serve` (ES modules exigem servidor).
