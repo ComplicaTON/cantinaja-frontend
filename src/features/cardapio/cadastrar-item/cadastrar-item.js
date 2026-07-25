@@ -1,139 +1,162 @@
-const feature = document.getElementById("feature-cadastrar-item");
+import { renderizarHtml } from '../../../../shared/utils.js';
+import { CONFIG_API } from '../../../../lib/config.js';
 
+const html = `
+<section class="card border-0 shadow-sm rounded-4 p-4">
 
+    <h2 class="h3 fw-bold text-dark mb-4">
+        Cadastro de Item
+    </h2>
 
-feature.innerHTML = `
-<div class="row justify-content-center">
-    <div class="col-12 col-md-8 col-lg-6">
-        <div class="text-center mb-4">
-            <h1 class="display-6 cj-title">
-                <i class="fa-solid fa-utensils cj-icon me-2"></i>
-                Cadastro de Item
-            </h1>
-            <p class="lead cj-subtitle">
-                Cadastre um novo produto para aparecer no cardápio.
-            </p>
-        </div>
-        <div class="card cj-form-card">
-            <div class="card-body p-4">
-                <form id="form-cadastrar-item" novalidate>
-                    <div class="mb-4">
-                        <label
-                            for="nome"
-                            class="form-label"
-                        >
-                            <i class="fa-solid fa-tag cj-icon me-2"></i>
-                            Nome do Item
-                        </label>
-                        <input
-                            id="nome"
-                            type="text"
-                            class="form-control form-control-lg"
-                            placeholder="Ex.: Coxinha de Frango"
-                        >
-                        <div class="invalid-feedback">
-                            Informe o nome do item.
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label
-                            for="preco"
-                            class="form-label"
-                        >
-                            <i class="fa-solid fa-dollar-sign cj-icon me-2"></i>
-                            Preço
-                        </label>
-                        <input
-                            id="preco"
-                            type="number"
-                            class="form-control form-control-lg"
-                            placeholder="0,00"
-                            step="0.01"
-                            min="0"
-                        >
-                        <div class="invalid-feedback">
-                            Informe um preço válido.
-                        </div>
-                    </div>
-                    <button
-                        type="submit"
-                        class="btn cj-btn w-100 btn-lg"
-                    >
-                        <i class="fa-solid fa-plus me-2"></i>
-                        Cadastrar Item
-                    </button>
-                </form>
+    <!-- Container local para mensagens de feedback -->
+    <div id="mensagem-feedback" class="d-none mb-3 alert" role="alert"></div>
+
+    <form id="form-cadastrar-item" class="d-flex flex-column gap-3">
+
+        <div>
+            <label for="nome" class="form-label fw-medium text-dark">
+                Nome
+            </label>
+
+            <input
+                id="nome"
+                type="text"
+                class="form-control rounded-3 py-2"
+                placeholder="Digite o nome do item"
+            >
+
+            <div class="invalid-feedback">
+                Informe o nome do item.
             </div>
         </div>
-    </div>
-</div>
+
+        <div>
+            <label for="preco" class="form-label fw-medium text-dark">
+                Preço
+            </label>
+
+            <input
+                id="preco"
+                type="number"
+                class="form-control rounded-3 py-2"
+                placeholder="0,00"
+                step="0.01"
+                min="0"
+            >
+
+            <div class="invalid-feedback">
+                Informe um preço válido.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary fw-semibold rounded-3 py-2 text-white">
+            <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>
+            Cadastrar Item
+        </button>
+
+    </form>
+
+</section>
 `;
 
-// task - 2 Seleção dos elementos da página
+renderizarHtml(html, "feature-cadastrar-item");
 
+// Helper interno para exibir mensagens de feedback usando o alert do Bootstrap
+function exibirMensagem(tipo, texto) {
+    const container = document.getElementById("mensagem-feedback");
+    if (!container) return;
 
-const formulario = document.getElementById("form-cadastrar-item");
+    container.className = `alert alert-${tipo} mb-3`;
+    container.textContent = texto;
+    container.classList.remove("d-none");
+}
 
-const nome = document.getElementById("nome");
+function inicializarFormulario() {
+    const formulario = document.getElementById("form-cadastrar-item");
+    const nome = document.getElementById("nome");
+    const preco = document.getElementById("preco");
 
-const preco = document.getElementById("preco");
+    if (!formulario) return;
 
-formulario.addEventListener("submit", function (event) {
+    formulario.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        let formularioValido = true;
 
-    event.preventDefault();
+        // Oculta mensagens anteriores ao tentar enviar
+        const msgContainer = document.getElementById("mensagem-feedback");
+        if (msgContainer) msgContainer.classList.add("d-none");
 
-    let formularioValido = true;
+        // ===== Validação Local (Cortesia) =====
+        if (nome.value.trim() === "") {
+            nome.classList.add("is-invalid");
+            formularioValido = false;
+        } else {
+            nome.classList.remove("is-invalid");
+        }
 
-    // ===== Validação Nome =====
+        if (preco.value.trim() === "" || Number(preco.value) <= 0) {
+            preco.classList.add("is-invalid");
+            formularioValido = false;
+        } else {
+            preco.classList.remove("is-invalid");
+        }
 
-    if (nome.value.trim() === "") {
+        if (!formularioValido) return;
 
-        nome.classList.add("is-invalid");
+        // ===== Envio para a API/Mockoon =====
+        try {
+            const resposta = await fetch(`${CONFIG_API.cardapio.baseUrl}/api/items`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nome: nome.value.trim(),
+                    preco: parseFloat(preco.value)
+                })
+            });
 
-        formularioValido = false;
+            const corpo = await resposta.json();
 
-    } else {
+            // Tratamento das respostas por Status HTTP[cite: 2, 4]
+            if (resposta.status === 201) {
+                // Sucesso: exibe feedback positivo
+                exibirMensagem("success", "Item cadastrado com sucesso!");
 
-        nome.classList.remove("is-invalid");
+                // Dispara um evento global para que a lista do cardápio (FED-002) receba e adicione o card[cite: 2, 4]
+                document.dispatchEvent(new CustomEvent("itemCadastrado", { detail: corpo }));
 
-    }
+                // Limpa o formulário
+                formulario.reset();
 
-    // ===== Validação Preço =====
+            } else if (resposta.status === 409) {
+                // Erro de nome duplicado (ex: "Coxinha")[cite: 2, 4]
+                exibirMensagem("danger", corpo.mensagem || "Erro: Este item já existe.");
 
-    if (preco.value.trim() === "" || Number(preco.value) <= 0) {
+            } else if (resposta.status === 400) {
+                // Erro de validação do backend[cite: 2, 4]
+                exibirMensagem("danger", corpo.mensagem || "Erro nos dados informados.");
 
-        preco.classList.add("is-invalid");
+            } else {
+                exibirMensagem("danger", corpo.mensagem || "Erro ao processar requisição.");
+            }
 
-        formularioValido = false;
+        } catch (erro) {
+            console.error("Erro de conexão/requisição:", erro);
+            exibirMensagem("danger", "Não foi possível conectar ao servidor.");
+        }
+    });
 
-    } else {
+    // Remove classes de erro visual enquanto o usuário digita
+    nome.addEventListener("input", () => {
+        if (nome.value.trim() !== "") nome.classList.remove("is-invalid");
+    });
 
-        preco.classList.remove("is-invalid");
+    preco.addEventListener("input", () => {
+        if (preco.value.trim() !== "" && Number(preco.value) > 0) {
+            preco.classList.remove("is-invalid");
+        }
+    });
+}
 
-    }
-
-
-
-});
-
-// Remove o erro quando o usuário digita
-
-nome.addEventListener("input", function () {
-
-    if (nome.value.trim() !== "") {
-
-        nome.classList.remove("is-invalid");
-
-    }
-
-});
-
-preco.addEventListener("input", function () {
-
-    if (preco.value.trim() !== "" && Number(preco.value) > 0) {
-
-        preco.classList.remove("is-invalid");
-
-    }
-
-});
+inicializarFormulario();
