@@ -43,7 +43,7 @@
 
     <div class="container mx-auto mt-4">
         <div class="row row-cols-1 row-cols-lg-2">
-            <h1>Cardápio</h1>
+            <h1><i class="fa-solid fa-pizza-slice"></i> Cardápio</h1>
         </div>
     </div>
 
@@ -56,27 +56,18 @@
                     <li class="card mb-3 g-3 rounded-0 border-start-0 border-end-0" data-bs-toggle="modal"
                         data-bs-target="#Modal-1" style="max-width: 500px; height: 140px;">
                         <div class="row g-0 h-100">
-                            <div class="col-8 d-flex flex-column h-100">
-                                <div class="card-body d-flex flex-column flex-grow-1">
+                            <div class="col-12 d-flex flex-column h-100">
+                                <div class="card-body d-flex flex-column flex-grow-1"
+                                    style="background-color: #F4E7E1;">
                                     <div>
                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                             <a class="card-link ">
                                                 <h4 class="card-title mb-0">Nome do prato</h4>
                                             </a>
-                                            <span class="badge text-bg-secondary">Disponível</span>
+                                            <span class="badge badge-disponivel">Disponível</span>
                                         </div>
                                         <span class="d-inline-block text-truncate" style="max-width: 450px;">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                                            elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                            enim
-                                            ad
-                                            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                                            ea
-                                            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                            esse
-                                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                            non
-                                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            descrição
                                         </span>
                                     </div>
                                     <div class="mt-auto">
@@ -90,30 +81,21 @@
             </div>
             <div class="col">
                 <ul class="list p-0">
-                    <li class="card mb-3 g-3 rounded-0 border border-start-0 border-end-0" data-bs-toggle="modal"
-                        data-bs-target="#Modal-*" style="max-width: 500px; height: 140px;">
+                    <li class="card mb-3 g-3 rounded-0 border-start-0 border-end-0" data-bs-toggle="modal"
+                        data-bs-target="#Modal-1" style="max-width: 500px; height: 140px;">
                         <div class="row g-0 h-100">
-                            <div class="col-8 d-flex flex-column h-100">
-                                <div class="card-body d-flex flex-column flex-grow-1">
+                            <div class="col-12 d-flex flex-column h-100">
+                                <div class="card-body d-flex flex-column flex-grow-1"
+                                    style="background-color: #F4E7E1;">
                                     <div>
                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                             <a class="card-link ">
                                                 <h4 class="card-title mb-0">Nome do prato</h4>
                                             </a>
-                                            <span class="badge text-bg-secondary">Disponível</span>
+                                            <span class="badge badge-indisponivel">Indisponível</span>
                                         </div>
                                         <span class="d-inline-block text-truncate" style="max-width: 450px;">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                                            elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                            enim
-                                            ad
-                                            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                                            ea
-                                            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                            esse
-                                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                                            non
-                                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                            descrição
                                         </span>
                                     </div>
                                     <div class="mt-auto">
@@ -132,24 +114,15 @@
     <!-- modal -->
 
     <div class="modal fade" id="Modal-1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-lg-down">
+            <div class="modal-content rounded-0" style="color: #521C0D; background-color: #F4E7E1; border-color: #521C0D;">
+                <div class="modal-header" style="border: #F4E7E1;">
                     <h4 class="modal-title fs-5" id="exampleModalLabel">Nome do prato</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                        enim
-                        ad
-                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                        ea
-                        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                        esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <p>
+                        descrição
                     </p>
                     <p>R$ 30,00</p>
                 </div>

@@ -1,38 +1,5 @@
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-
-.card-link::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    cursor: pointer;
-    border: 1px solid #521c0d;
-    border-radius: 0;
-    border-right: none;
-    border-left: none;
-    transition: border-color 200ms;
-}
-
-.card-link:focus {
-    outline: none;
-}
-
-.card-link:hover::before,
-.card-title:focus-visible::before {
-    border-color: color-mix(in oklab, #521c0d 30%, white);
-    border-radius: 0;
-    outline: none;
-    border-right: none;
-    border-left: none;
-}
-
 body {
     background-color: #f4e7e1;
-    color: #521c0d;
     font-family: "Inter", system-ui, sans-serif;
 }
 
@@ -84,4 +51,3 @@ body {
     display: inline-block;
     margin-right: 0.25rem;
 }
-
