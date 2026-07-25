@@ -1,0 +1,87 @@
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+.card-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    cursor: pointer;
+    border: 1px solid #521c0d;
+    border-radius: 0;
+    border-right: none;
+    border-left: none;
+    transition: border-color 200ms;
+}
+
+.card-link:focus {
+    outline: none;
+}
+
+.card-link:hover::before,
+.card-title:focus-visible::before {
+    border-color: color-mix(in oklab, #521c0d 30%, white);
+    border-radius: 0;
+    outline: none;
+    border-right: none;
+    border-left: none;
+}
+
+body {
+    background-color: #f4e7e1;
+    color: #521c0d;
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+:root {
+    --bs-primary: #ff9b45;
+    --bs-secondary: #d5451b;
+    --bs-light: #f4e7e1;
+    --bs-dark: #521c0d;
+}
+
+.badge-disponivel {
+    --bs-badge-padding-x: .6rem;
+    --bs-badge-padding-y: .25rem;
+    --bs-badge-font-size: .8rem;
+    --bs-badge-font-weight: 600;
+    --bs-badge-border-radius: .375rem;
+    --bs-badge-color: #f4e7e1;
+
+
+    background: #ff9b45;
+    color: var(--bs-badge-color);
+}
+
+.badge-disponivel::before {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+
+.badge-indisponivel {
+    --bs-badge-padding-x: .6rem;
+    --bs-badge-padding-y: .25rem;
+    --bs-badge-font-size: .8rem;
+    --bs-badge-font-weight: 600;
+    --bs-badge-border-radius: .375rem;
+    --bs-badge-color: #f4e7e1;
+
+
+    background: #d5451b;
+    color: var(--bs-badge-color);
+}
+
+.badge-indisponivel::before {
+    content: "\0058";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+
