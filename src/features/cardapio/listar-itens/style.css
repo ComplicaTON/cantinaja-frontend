@@ -3,6 +3,22 @@ a {
     text-decoration: none;
 }
 
+.card {
+    max-width: 500px;
+    height: 140px;
+    border-radius: 0; 
+    border-right: none;
+    border-left: none;
+}
+
+.card-text {
+    max-width: 450px;
+}
+
+.card-body {
+    background-color: var(--bs-light);
+    color: #521c0d;
+}
 
 .card-link::before {
     content: "";
@@ -83,5 +99,9 @@ body {
     font-weight: 900;
     display: inline-block;
     margin-right: 0.25rem;
+}
+
+ul {
+    list-style: none;
 }
 
