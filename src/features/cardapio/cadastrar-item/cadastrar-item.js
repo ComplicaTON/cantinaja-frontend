@@ -156,23 +156,13 @@ function inicializarFormulario() {
 
           
             if (resposta.status === 201) {
-
-                exibirMensagem(
-                    "success",
-                    "Item cadastrado com sucesso!"
-                );
-
+                exibirMensagem("success", "Item cadastrado com sucesso!");
                 formulario.reset();
-
-                document.dispatchEvent(
-                    new CustomEvent("itemCadastrado")
-                );
-
+                document.dispatchEvent(new CustomEvent("itemCadastrado"));
                 return;
             }
 
-   
-            const corpo = await resposta.json();
+            const corpo = await resposta.json()
 
             if (resposta.status === 409) {
 
