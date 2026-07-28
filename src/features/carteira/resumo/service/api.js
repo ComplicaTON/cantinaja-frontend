@@ -1,8 +1,8 @@
-import { APIMock } from "../../../../../lib/config.js";
+import { CONFIG_API } from "../../../../../lib/config.js";
 
 export async function carregarTransacoes(alunoId) {
-  // Chamada da API com o método GET do endpoint "transacoes"
-  const resposta = await fetch(`${APIMock.carteira}/api/carteiras/${alunoId}/transacoes`);
+  const { baseUrl } = CONFIG_API.carteira;
+  const resposta = await fetch(`${baseUrl}/api/carteiras/${alunoId}/transacoes`);
   const transacoesJson = await resposta.json();
 
   let totalDebito = 0
@@ -20,6 +20,5 @@ export async function carregarTransacoes(alunoId) {
     totalTransacoes += 1
  });
 
-  const valoresTransacoes = [totalDebito, totalRecarga, totalTransacoes]
-  return valoresTransacoes;
+  return { totalDebito, totalRecarga, totalTransacoes };
 }

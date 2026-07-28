@@ -1,3 +1,4 @@
+import { CONFIG_API } from "/lib/config.js";
 import { renderizarHtml } from "../../../../shared/utils.js";
 import { carregarTransacoes } from "./service/api.js";
 
@@ -35,8 +36,8 @@ const CARD_HTML =
 
 renderizarHtml(CARD_HTML, 'CARD_RESUMO')
 
-carregarTransacoes(1) // Chamada da API
-.then(([totalDebito, totalRecarga, totalTransacoes]) => {
+carregarTransacoes(CONFIG_API.carteira.alunoId)
+.then(({totalDebito, totalRecarga, totalTransacoes}) => {
   // Conversão de valores para reais
   const debito = totalDebito.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
   const recarga = totalRecarga.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
@@ -46,3 +47,4 @@ carregarTransacoes(1) // Chamada da API
   document.getElementById("total-gasto").innerText = debito;
   document.getElementById("quantidade-transacoes").innerText = totalTransacoes;
 })
+.catch((erro) => console.error("Falha ao carregar o resumo:", erro));
