@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CantinaJá</title>
+    <title>CantinaJá - Cardápio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -24,33 +24,35 @@
   </head>
   <body>
 
+    <!-- Navbar global compartilhada -->
     <div id="navbar"></div>
 
     <main class="container mt-4">
-      <h1 class="mb-4">CantinaJá</h1>
-      <p class="lead">Bem-vindo à CantinaJá!</p>
-      <div class="d-flex gap-3 flex-wrap">
-        <a class="btn btn-primary" href="/src/app/cardapio/index.html">
-          <i class="fa-solid fa-utensils me-1"></i>Cardápio
-        </a>
-        <a class="btn btn-primary" href="/src/app/carteira/index.html">
-          <i class="fa-solid fa-wallet me-1"></i>Carteira
-        </a>
-      </div>
+      <!-- Container da Feature FED-001 (Cadastrar Item) -->
+      <section id="feature-cadastrar-item"></section>
     </main>
 
+    <!-- Bootstrap 5.3.8 JS Bundle -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
 
-    
+    <!-- Scripts da Aplicação -->
     <script type="module">
       import { renderizarHtml } from "/shared/utils.js";
       import { navbarHtml } from "/shared/navbar.js";
 
+      // Renderiza a navbar compartilhada no container #navbar
       renderizarHtml(navbarHtml, "navbar");
     </script>
+
+    <!-- Script da Feature (FED-001) -->
+    <script
+      type="module"
+      src="/src/features/cardapio/cadastrar-item/cadastrar-item.js"
+    ></script>
+
   </body>
 </html>

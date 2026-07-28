@@ -1,14 +1,18 @@
 import { renderizarHtml } from '../../../../shared/utils.js';
-import { CONFIG_API } from '../../../../lib/config.js';
+import { navbarHtml } from "../../../../shared/navbar.js";
+import { CONFIG_API, USE_MOCKS } from "../../../../lib/config.js";
+
+
+console.log("Modo Mock:", USE_MOCKS);
+console.log("API Cardápio:", CONFIG_API.cardapio.baseUrl);
 
 const html = `
-<section class="card border-0 shadow-sm rounded-4 p-4">
+<section class="card border-0 shadow-sm rounded-4 p-4 bg-white">
 
     <h2 class="h3 fw-bold text-dark mb-4">
         Cadastro de Item
     </h2>
 
-    <!-- Container local para mensagens de feedback -->
     <div id="mensagem-feedback" class="d-none mb-3 alert" role="alert"></div>
 
     <form id="form-cadastrar-item" class="d-flex flex-column gap-3">
@@ -17,14 +21,12 @@ const html = `
             <label for="nome" class="form-label fw-medium text-dark">
                 Nome
             </label>
-
             <input
                 id="nome"
                 type="text"
                 class="form-control rounded-3 py-2"
                 placeholder="Digite o nome do item"
             >
-
             <div class="invalid-feedback">
                 Informe o nome do item.
             </div>
@@ -34,7 +36,6 @@ const html = `
             <label for="preco" class="form-label fw-medium text-dark">
                 Preço
             </label>
-
             <input
                 id="preco"
                 type="number"
@@ -43,13 +44,13 @@ const html = `
                 step="0.01"
                 min="0"
             >
-
             <div class="invalid-feedback">
                 Informe um preço válido.
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary fw-semibold rounded-3 py-2 text-white">
+        <!-- O btn-primary já puxa o hover e as cores novas do styles.css -->
+        <button type="submit" class="btn btn-primary fw-semibold rounded-3 py-2 mt-2 w-100">
             <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>
             Cadastrar Item
         </button>
@@ -58,6 +59,8 @@ const html = `
 
 </section>
 `;
+
+renderizarHtml(navbarHtml, "navbar");
 
 renderizarHtml(html, "feature-cadastrar-item");
 
