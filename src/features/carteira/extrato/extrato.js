@@ -1,127 +1,113 @@
-function formatarMoeda(valor) {
-  return "R$ " + Number(valor).toFixed(2).replace('.', ',');
-}
+document.addEventListener("DOMContentLoaded", () => {
+  // Dados simulados da carteira obtidos do mock global
+  const transacoes = window.mockData ? window.mockData.transacoes : [];
 
-function formatarData(dataISO) {
-  const data = new Date(dataISO);
-  return data.toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-}
+  // Elementos do DOM - Tela Principal
+  const totalRecarregadoEl = document.getElementById("totalRecarregado");
+  const totalGastoEl = document.getElementById("totalGasto");
+  const saldoAtualEl = document.getElementById("saldoAtual");
+  const tabelaCorpoEl = document.getElementById("tabelaCorpo");
 
-function calcularTotais() {
-  let somaEntradas = 0;
-  let somaSaidas = 0;
+  // Elementos do DOM - Modal
+  const tabelaModalCorpoEl = document.getElementById("tabelaModalCorpo");
+  const botoesFiltro = document.querySelectorAll("#filtrosExtrato button");
 
-  for (let i = 0; i < mockExtrato.length; i++) {
-    let item = mockExtrato[i];
-
-    if (item.tipo === "RECARGA") {
-      somaEntradas += item.valor;
-    } else if (item.tipo === "DEBITO") {
-      somaSaidas += item.valor;
-    }
-  }
-
-  const saldoAtual = somaEntradas - somaSaidas;
-
-  document.getElementById("totalRecarregado").textContent = formatarMoeda(somaEntradas);
-  document.getElementById("totalGasto").textContent = formatarMoeda(somaSaidas);
-  
-  // Atualiza o card de saldo disponível no momento
-  const elSaldo = document.getElementById("saldoAtual");
-  if (elSaldo) {
-    elSaldo.textContent = formatarMoeda(saldoAtual);
-  }
-}
-
-function mostrarNaTabela(listaDeTransacoes, idDaTabela) {
-  const tabela = document.getElementById(idDaTabela);
-  let htmlAcumulado = "";
-
-  if (listaDeTransacoes.length === 0) {
-    tabela.innerHTML = `<tr><td colspan="3" class="text-center text-muted">Nenhuma transação encontrada.</td></tr>`;
-    return;
-  }
-
-  for (let i = 0; i < listaDeTransacoes.length; i++) {
-    let item = listaDeTransacoes[i];
-    
-    let ehEntrada = item.tipo === "RECARGA";
-    let classeCor = ehEntrada ? "text-success" : "text-danger";
-    let sinal = ehEntrada ? "+" : "-";
-
-    htmlAcumulado += `
-      <tr>
-        <td><span class="badge ${ehEntrada ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'} fw-bold">${item.tipo}</span></td>
-        <td class="${classeCor} fw-bold">${sinal} ${formatarMoeda(item.valor)}</td>
-        <td class="text-secondary">${formatarData(item.data)}</td>
-      </tr>
-    `;
-  }
-
-  tabela.innerHTML = htmlAcumulado;
-}
-
-function mostrarUltimas5() {
-  let ultimas5 = [];
-
-  for (let i = mockExtrato.length - 1; i >= 0; i--) {
-    ultimas5.push(mockExtrato[i]);
-
-    if (ultimas5.length === 5) {
-      break;
-    }
-  }
-
-  mostrarNaTabela(ultimas5, "tabelaCorpo");
-}
-
-function filtrarModal(tipoDesejado) {
-  if (tipoDesejado === "TODAS") {
-    mostrarNaTabela(mockExtrato, "tabelaModalCorpo");
-    return;
-  }
-
-  let listaFiltrada = [];
-
-  for (let i = 0; i < mockExtrato.length; i++) {
-    let item = mockExtrato[i];
-
-    if (tipoDesejado === "RECARGA" && item.tipo === "RECARGA") {
-      listaFiltrada.push(item);
-    } else if (tipoDesejado === "DEBITO" && item.tipo === "DEBITO") {
-      listaFiltrada.push(item);
-    }
-  }
-
-  mostrarNaTabela(listaFiltrada, "tabelaModalCorpo");
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  calcularTotais();
-  mostrarUltimas5();
-  mostrarNaTabela(mockExtrato, "tabelaModalCorpo");
-
-  const containerFiltros = document.getElementById("filtrosExtrato");
-  
-  if (containerFiltros) {
-    containerFiltros.addEventListener("click", function (event) {
-      const botaoClicado = event.target.closest("button[data-filtro]");
-      if (!botaoClicado) return;
-
-      const botoes = containerFiltros.querySelectorAll("button");
-      for (let i = 0; i < botoes.length; i++) {
-        botoes[i].classList.remove("active");
-      }
-      botaoClicado.classList.add("active");
-
-      const filtro = botaoClicado.getAttribute("data-filtro");
-      filtrarModal(filtro);
+  // Função para formatar valores em R$
+  function formatarMoeda(valor) {
+    return valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
     });
   }
+
+  // Função para formatar a data (YYYY-MM-DD para DD/MM/YYYY)
+  function formatarData(dataISO) {
+    if (!dataISO) return "";
+    const partes = dataISO.split("-");
+    if (partes.length === 3) {
+      return `${partes[2]}/${partes[1]}/${partes[0]}`;
+    }
+    return dataISO;
+  }
+
+  // Calcula os totais e renderiza os cards
+  function carregarResumo() {
+    let totalRecarregado = 0;
+    let totalGasto = 0;
+
+    transacoes.forEach((item) => {
+      if (item.tipo === "RECARGA") {
+        totalRecarregado += item.valor;
+      } else if (item.tipo === "DEBITO") {
+        totalGasto += item.valor;
+      }
+    });
+
+    const saldoAtual = totalRecarregado - totalGasto;
+
+    if (totalRecarregadoEl)
+      totalRecarregadoEl.textContent = formatarMoeda(totalRecarregado);
+    if (totalGastoEl) totalGastoEl.textContent = formatarMoeda(totalGasto);
+    if (saldoAtualEl) saldoAtualEl.textContent = formatarMoeda(saldoAtual);
+  }
+
+  // Gera as linhas HTML para as tabelas
+  function criarLinhasTabela(lista) {
+    if (!lista || lista.length === 0) {
+      return `<tr><td colspan="3" class="text-center text-muted">Nenhuma transação encontrada.</td></tr>`;
+    }
+
+    return lista
+      .map((item) => {
+        const isRecarga = item.tipo === "RECARGA";
+        const badgeClasse = isRecarga ? "bg-success" : "bg-danger";
+        const sinal = isRecarga ? "+" : "-";
+
+        return `
+          <tr>
+            <td><span class="badge ${badgeClasse}">${item.tipo}</span></td>
+            <td class="fw-semibold ${isRecarga ? "text-success" : "text-danger"}">
+              ${sinal} ${formatarMoeda(item.valor)}
+            </td>
+            <td class="text-secondary">${formatarData(item.data)}</td>
+          </tr>
+        `;
+      })
+      .join("");
+  }
+
+  // Renderiza a tabela inicial (limitada às 5 mais recentes)
+  function renderizarTabelaPrincipal() {
+    if (!tabelaCorpoEl) return;
+    const ultimasTransacoes = transacoes.slice(0, 5);
+    tabelaCorpoEl.innerHTML = criarLinhasTabela(ultimasTransacoes);
+  }
+
+  // Renderiza a tabela do modal com filtro aplicado
+  function renderizarTabelaModal(tipoFiltro = "TODAS") {
+    if (!tabelaModalCorpoEl) return;
+
+    let filtradas = transacoes;
+    if (tipoFiltro !== "TODAS") {
+      filtradas = transacoes.filter((t) => t.tipo === tipoFiltro);
+    }
+
+    tabelaModalCorpoEl.innerHTML = criarLinhasTabela(filtradas);
+  }
+
+  // Configuração dos eventos dos botões de filtro no Modal
+  botoesFiltro.forEach((botao) => {
+    botao.addEventListener("click", (e) => {
+      botoesFiltro.forEach((b) => b.classList.remove("active"));
+      e.target.classList.add("active");
+
+      const filtro = e.target.getAttribute("data-filtro");
+      renderizarTabelaModal(filtro);
+    });
+  });
+
+  // Inicialização
+  carregarResumo();
+  renderizarTabelaPrincipal();
+  renderizarTabelaModal("TODAS");
 });
