@@ -1,0 +1,92 @@
+const mockExtrato = [
+  {
+    id: 1,
+    tipo: "RECARGA",
+    valor: 20.0,
+    data: "2026-07-20T10:00:00",
+  },
+  {
+    id: 2,
+    tipo: "DEBITO",
+    valor: 10.0,
+    data: "2026-07-21T12:30:00",
+  },
+  {
+    id: 3,
+    tipo: "CREDITO",
+    valor: 30.0,
+    data: "2026-07-22T14:45:00",
+  },
+  {
+    id: 4,
+    tipo: "RECARGA",
+    valor: 30.0,
+    data: "2026-07-22T14:48:00",
+  },
+  {
+    id: 5,
+    tipo: "CREDITO",
+    valor: 10.0,
+    data: "2026-07-22T14:45:00",
+  },
+  {
+    id: 6,
+    tipo: "CREDITO",
+    valor: 10.0,
+    data: "2026-07-23T14:50:00",
+  },
+  {
+    id: 7,
+    tipo: "DEBITO",
+    valor: 10.0,
+    data: "2026-07-24T10:55:00",
+  },
+  {
+    id: 8,
+    tipo: "DEBITO",
+    valor: 10.0,
+    data: "2026-07-24T10:55:00",
+  },
+  {
+    id: 9,
+    tipo: "RECARGA",
+    valor: 50.0,
+    data: "2026-07-25T09:15:00",
+  },
+  {
+    id: 10,
+    tipo: "DEBITO",
+    valor: 15.5,
+    data: "2026-07-25T16:20:00",
+  },
+  {
+    id: 11,
+    tipo: "DEBITO",
+    valor: 8.0,
+    data: "2026-07-26T11:05:00",
+  },
+  {
+    id: 12,
+    tipo: "RECARGA",
+    valor: 100.0,
+    data: "2026-07-26T18:30:00",
+  },
+  {
+    id: 13,
+    tipo: "CREDITO",
+    valor: 25.0,
+    data: "2026-07-27T08:40:00",
+  },
+  {
+    id: 14,
+    tipo: "DEBITO",
+    valor: 45.0,
+    data: "2026-07-27T13:10:00",
+  },
+  {
+    id: 15,
+    tipo: "DEBITO",
+    valor: 12.0,
+    data: "2026-07-28T17:00:00",
+  },
+]
