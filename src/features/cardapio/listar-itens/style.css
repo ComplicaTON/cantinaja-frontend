@@ -18,6 +18,14 @@ a {
     border-radius: 4px;
 }
 
+.card-body-disabled {
+    background-color: var(--bs-light);
+    color: color-mix(in oklab, #521c0d 70%, white);
+    border-radius: 4px;
+    border: 1px solid color-mix(in oklab, #521c0d, white);
+    background-color: color-mix(in oklab, #f4e7e1 95%, black);;
+}
+
 .card-link::before {
     content: "";
     position: absolute;
@@ -67,7 +75,7 @@ body {
     --bs-badge-font-size: .8rem;
     --bs-badge-font-weight: 600;
     --bs-badge-border-radius: .375rem;
-    --bs-badge-color: #f4e7e1;
+    --bs-badge-color: #fff;
 
 
     background: #ff9b45;
@@ -89,7 +97,7 @@ body {
     --bs-badge-font-weight: 600;
     --bs-badge-border-radius: .375rem;
     --bs-badge-color: #f4e7e1;
-
+    
 
     background: #d5451b;
     color: var(--bs-badge-color);
