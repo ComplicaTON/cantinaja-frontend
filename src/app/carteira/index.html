@@ -1,9 +1,17 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
+<<<<<<< HEAD
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Extrato</title>
+=======
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CantinaJá</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+>>>>>>> 2e1fba5dcef41f909688c46e04b8be69bca18e09
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -12,6 +20,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
       rel="stylesheet"
     />
+<<<<<<< HEAD
     <link rel="stylesheet" href="../../../styles/style.css" />
 
   </head>
@@ -151,5 +160,31 @@
     <script src="../../features/carteira/extrato/extrato.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+=======
+    <link href="/styles/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+
+    <div id="navbar"></div>
+
+    <main class="container mt-4">
+      <section class="bg-light p-3 p-md-4 rounded" id="CARD_RESUMO"></section>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script type="module" src="/src/features/carteira/resumo/resumo.js"></script>
+    
+    <script type="module">
+      import { renderizarHtml } from "/shared/utils.js";
+      import { navbarHtml } from "/shared/navbar.js";
+
+      renderizarHtml(navbarHtml, "navbar");
+    </script>
+>>>>>>> 2e1fba5dcef41f909688c46e04b8be69bca18e09
   </body>
 </html>
