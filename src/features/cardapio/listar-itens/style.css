@@ -4,12 +4,12 @@ a {
 }
 
 .card {
-    height: 160px;
+    height: 130px;
     border-radius: 4px;    
 }
 
 .card-text {
-    max-width: 450px;
+    max-width: 530px;
 }
 
 .card-body {
