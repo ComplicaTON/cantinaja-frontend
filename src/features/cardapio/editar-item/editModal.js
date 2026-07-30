@@ -1,5 +1,4 @@
 import { CONFIG_API } from "../../../../lib/config.js";
-import { listar } from "./list.js";
 
 const modalElement = document.getElementById('modalEditar');
 const modal = new bootstrap.Modal(modalElement);
@@ -89,7 +88,6 @@ export function abrirModal (produto){
 
                 }
             }
-
 
             modal.hide();
 

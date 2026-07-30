@@ -22,7 +22,6 @@ const modal =
               class="form-control" 
               id="inputProduto" 
               name="nome"
-              placeholder="Ex: Camiseta Algodão Premium" 
               required
             >
             <div class="invalid-feedback">
@@ -39,7 +38,6 @@ const modal =
                 class="form-control" 
                 id="inputPreco" 
                 name="preco"
-                placeholder="0,00" 
                 inputmode="decimal" 
                 required
               >
