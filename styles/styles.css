@@ -3,17 +3,12 @@ a {
     text-decoration: none;
 }
 
-.card {
-    height: 130px;
-    border-radius: 4px;    
-}
-
 .card-text {
     max-width: 530px;
 }
 
 .card-body {
-    background-color: var(--bs-light);
+    background-color: rgba(250, 239, 236, 0.911);
     color: #521c0d;
     border-radius: 4px;
 }
@@ -22,7 +17,7 @@ a {
     background-color: var(--bs-light);
     color: color-mix(in oklab, #521c0d 70%, white);
     border-radius: 4px;
-    border: 1px solid color-mix(in oklab, #521c0d, white);
+    border: 1px solid color-mix(in oklab, #521c0d 30%, white);
     background-color: color-mix(in oklab, #f4e7e1 95%, black);;
 }
 
@@ -32,7 +27,7 @@ a {
     inset: 0;
     z-index: 1;
     cursor: pointer;
-    border: 1px solid #521c0d;
+    border: 1px solid color-mix(in oklab, #521c0d 30%, white);;
     border-radius: 4px;
     transition: border-color 200ms;
 }
@@ -62,8 +57,8 @@ body {
 }
 
 .form-select {
-    background-color: #f4e7e1;
-    border-color: #521c0d;
+    background-color: rgba(250, 239, 236, 0.911);
+    border-color: color-mix(in oklab, #521c0d 30%, white);
     color: #521c0d;
     border-radius: 18px;
     text-align: center;
@@ -113,17 +108,17 @@ body {
 
 .modal-content {
     color: #521c0d;
-    background-color: #f4e7e1;
-    border-color: #521c0d;
+    background-color: rgba(250, 239, 236, 0.911);
+    border-color: color-mix(in oklab, #521c0d 30%, white);
     border-radius: 4px;
 }
 
 .modal-header {
-    border-color: #f4e7e1;
+    border-color: rgba(250, 239, 236, 0.911);
 }
 
 .modal-footer {
-    border-color: #f4e7e1;
+    border-color: rgba(250, 239, 236, 0.911);
 }
 
 
@@ -131,3 +126,22 @@ ul {
     list-style: none;
 }
 
+h1 {
+    font-weight: 700;
+    font-size: 40px;
+}
+
+h4 {
+    font-weight: 600;
+    font-size: 20px
+}
+
+p {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+option {
+    font-size: 14px;
+    font-weight: 500;
+}

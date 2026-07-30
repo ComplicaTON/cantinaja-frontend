@@ -47,7 +47,7 @@ function renderizarInterface(produtos) {
         colunaDoCard.classList.add('col');
 
         const itemDaLista = document.createElement("article");
-        itemDaLista.classList.add("card", "mb-4", "g-3", 'shadow-sm');
+        itemDaLista.classList.add("card", "mb-4", "g-3", 'shadow');
 
         const corpoDoCard = document.createElement('div');
         corpoDoCard.classList.add('card-body', 'd-flex', 'flex-column', 'flex-grow-1');
