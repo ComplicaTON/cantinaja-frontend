@@ -27,15 +27,12 @@ export async function listar() {
       const priceLabel = document.createElement('p');
       const priceValue = document.createElement('p');
 
-      const id = document.getElementById('inputId');
-
-      id.value = produto.id
-      console.log(id.value)
-
+      card.id = `card-${produto.id}`;
+      console.log(card.id)
       card.className = 'card-body mb-3 border pb-2';
       title.className = 'fw-semibold card-title text-center';
       priceLabel.className = 'col col-lg-2 fw-bold';
-      priceValue.className = 'col col-lg-5';
+      priceValue.className = 'col col-lg-5 priceValue';
       
       rowInfo.className = 'row align-items-center';
 
