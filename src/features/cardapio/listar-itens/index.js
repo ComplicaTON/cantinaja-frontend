@@ -51,6 +51,7 @@ function renderizarInterface(produtos) {
 
         const corpoDoCard = document.createElement('div');
         corpoDoCard.classList.add('card-body', 'd-flex', 'flex-column', 'flex-grow-1');
+        corpoDoCard.setAttribute('id', `card-${produto.id}`);
 
         const headerDoCard = document.createElement('header');
         headerDoCard.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'mb-2');
@@ -78,6 +79,7 @@ function renderizarInterface(produtos) {
         const nomeDoPrato = document.createElement('h4');
         nomeDoPrato.classList.add('card-title', 'mb-0');
         nomeDoPrato.textContent = produto.titulo;
+        nomeDoPrato.setAttribute('id', 'nome-do-prato');
 
         const descricaoDoPrato = document.createElement('p');
         descricaoDoPrato.classList.add('card-text', 'text-truncate');
@@ -94,6 +96,7 @@ function renderizarInterface(produtos) {
         const preco = document.createElement('p');
         preco.classList.add('card-text', 'mb-0');
         preco.textContent = precoFormatado;
+        preco.setAttribute('id', 'preco');
 
         const modal = document.createElement('li');
         modal.classList.add('modal', 'fade');
