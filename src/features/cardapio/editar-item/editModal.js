@@ -1,5 +1,4 @@
 import { CONFIG_API } from "../../../../lib/config.js";
-import { listar } from "./list.js";
 
 const modalElement = document.getElementById('modalEditar');
 const modal = new bootstrap.Modal(modalElement);
@@ -18,8 +17,8 @@ e.target.value = value;
 });
 
 export function abrirModal (produto){
-    currentItem = produto;
 
+    currentItem = produto;
     nameImput.value = produto.nome;
 
     priceImput.value = Number(produto.preco).toLocaleString("pt-BR", {
@@ -28,16 +27,20 @@ export function abrirModal (produto){
     })
 
     modal.show();
-    
 }
 
-form.addEventListener("submit", async function (event) {
+    form.addEventListener("submit", async function (event) {
         event.preventDefault();
 
+        if(!currentItem) return;
+
+        const precoLimpo = priceImput.value
+        .replace(/\./g, '')
+        .replace(',', '.');
         
         const dadosAtualizados = {
             nome: nameImput.value,
-            preco: priceImput.value
+            preco: parseFloat(precoLimpo) || 0
         }
 
         const btnSalvar = document.getElementById("btnSalvar");
@@ -52,24 +55,43 @@ form.addEventListener("submit", async function (event) {
             const resposta = await fetch(url,{
                 method: 'PATCH',
                 headers: {
-                    'content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(dadosAtualizados)
             })
 
+            if (resposta.status === 400) {
+                const erroDados = await resposta.json().catch(() => null);
+                alert(`Atenção (400): ${erroDados?.message || "Dados inválidos."}`);
+                return;
+            }  
+
             if(!resposta.ok){
-                throw new Error(`Erro ao atualizar:${resposta.status}`)
+                throw new Error(`Erro ao atualizar:${resposta.status}`);
             }
 
-            const resultado = await resposta.json();
-            console.log("produto atualizado na API:", resultado);
-            console.log(dadosAtualizados);
+            const respostaApi = await resposta.json();
+            const produtoAtualizado = Array.isArray(respostaApi) ? respostaApi[0] : respostaApi;
+
+            const cardExistente = document.getElementById(`card-${produtoAtualizado.id}`)
+
+            if(cardExistente) {
+                const elementoNome = cardExistente.querySelector(".card-title")
+                if (elementoNome) elementoNome.textContent = produtoAtualizado.nome
+
+                const elementoPreco = cardExistente.querySelector(".priceValue")
+                if (elementoPreco) {
+                    elementoPreco.textContent = `R$ ${Number(produtoAtualizado.preco).toLocaleString("pt-BR", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                    })}`;
+
+                }
+            }
 
             modal.hide();
 
             alert("Produto atualizado com sucesso!");
-
-            listar();
 
         } catch(erro){
             console.error("Falha ao salvar produto:",erro);

@@ -1,136 +1,63 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cardapio</title>
+
+    <title>CantinaJá - Cardápio</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      src="https://kit.fontawesome.com/78b084acaa.js"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet"
     />
 
-    <link 
-    rel="stylesheet"
-    href="../../features/cardapio/editar-item/styles.css"/>
-  </head>
-  <body>
+    <script
+        src="https://kit.fontawesome.com/78b084acaa.js"
+        crossorigin="anonymous">
+    </script>
 
-    <nav class="navbar navbar-expand-lg" style="background-color: #521C0D;">
-    <div class="container">
-    <a class="navbar-brand text-white fw-semibold" href="/">Cantinaja</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarMain"
-      aria-controls="navbarMain"
-      aria-expanded="false"
-      aria-label="Alternar navegação"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarMain">
-      <ul class="navbar-nav ms-auto gap-2">
-        <li class="nav-item">
-          <a class="nav-link text-white" href="/wallet"><i class="fa-solid fa-wallet me-1"></i>Carteira</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous"
+    />
 
-    <div id="cardapio"></div>
-    
-<!-- Modal -->
+    <link rel="stylesheet" href="../../../styles/styles.css">
+</head>
 
-<div class="modal fade" id="modalEditar" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-   aria-labelledby="tituloModal" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      
-      <form id="formEditarProduto" novalidate>
+<body>
 
-        <input type="hidden" id="inputId" name="id">
-        <div class="modal-header">
-          <h2 class="modal-title fs-5" id="tituloModal">Editar Produto</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-        </div>
-        
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="inputProduto" class="form-label">Nome do Produto <span class="text-danger">*</span></label>
-            <input 
-              type="text" 
-              class="form-control" 
-              id="inputProduto" 
-              name="nome"
-              placeholder="Ex: Camiseta Algodão Premium" 
-              required
-            >
-            <div class="invalid-feedback">
-              Por favor, informe o nome do produto.
-            </div>
-          </div>
-          
-          <div class="mb-3">
-            <label for="inputPreco" class="form-label">Preço <span class="text-danger">*</span></label>
-            <div class="input-group">
-              <span class="input-group-text">R$</span>
-              <input 
-                type="text" 
-                class="form-control" 
-                id="inputPreco" 
-                name="preco"
-                placeholder="0,00" 
-                inputmode="decimal" 
-                required
-              >
-              <div class="invalid-feedback">
-                Por favor, informe um preço válido.
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+    <div id="navbar"></div>
 
-          <button type="submit" class="btn btn-primary" id="btnSalvar">
-            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-            Salvar alterações
-          </button>
-        </div>
+    <main class="container py-4">
+        <section id="feature-cadastrar-item"></section>
+    </main>
 
-      </form>
-
-    </div>
-  </div>
-</div>
-
-<button class="btn btn-primary">botao</button>
+    <div id="renderizarModal"></div>
 
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous">
+    </script>
+
+    <script type="module">
+        import { renderizarHtml } from "/shared/utils.js";
+        import { navbarHtml } from "/shared/navbar.js";
+
+        renderizarHtml(navbarHtml, "navbar");
+    </script>
 
     <script
-      type="module"
-      src="../../features/cardapio/editar-item/list.js"
-      ></script>
+        type="module"
+        src="/src/features/cardapio/cadastrar-item/cadastrar-item.js">
+    </script>
 
-  </body>
+    <script type="module" src="../../features/cardapio/editar-item/list.js" ></script>
+
+</body>
 </html>

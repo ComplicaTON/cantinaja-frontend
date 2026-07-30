@@ -1,4 +1,4 @@
-import { abrirModal } from "./modal.js";
+import { abrirModal } from "./editModal.js";
 
 export function botaoEditar(produto) {
 

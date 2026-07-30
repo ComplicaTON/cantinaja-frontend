@@ -1,0 +1,188 @@
+{
+  "uuid": "d78ebeda-6648-4260-9584-62849ff44f7a",
+  "lastMigration": 33,
+  "name": "Carteira.mockoon",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3082,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "d6769af3-5d44-4da9-b0c9-cd3e25a3c1e8",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "api/carteiras/:alunoId/recargas",
+      "responses": [
+        {
+          "uuid": "9a1f7c44-11bb-492b-9567-7297f1cbd194",
+          "body": "{\n  \"alunoId\": {{urlParam 'alunoId'}},\n  \"saldo\": {{body 'valor'}},\n  \"saldoBaixo\": false\n}",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "ce75f127-7aef-4150-aaf3-c95b31ae3761",
+          "body": "{\n  \"erro\": \"RECARGA_FORA_DA_FAIXA\",\n  \"mensagem\": \"A recarga deve estar entre R$ 5,00 e R$ 500,00\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "",
+              "value": "schema-recarga-valida",
+              "invert": true,
+              "operator": "valid_json_schema"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "ccf5603f-9f44-472d-a047-874adf267030",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/carteiras/1/transacoes",
+      "responses": [
+        {
+          "uuid": "3a832961-b90e-4dc0-b568-b06fc009fbd7",
+          "body": "[\n  {\n    \"id\": 3,\n    \"tipo\": \"DEBITO\",\n    \"valor\": 12.50,\n    \"dataHora\": \"2026-07-17T10:32:00\"\n  },\n  {\n    \"id\": 2,\n    \"tipo\": \"RECARGA\",\n    \"valor\": 20.00,\n    \"dataHora\": \"2026-07-16T09:10:00\"\n  },\n  {\n    \"id\": 2,\n    \"tipo\": \"RECARGA\",\n    \"valor\": 50.00,\n    \"dataHora\": \"2026-07-16T09:10:00\"\n  },\n  {\n    \"id\": 2,\n    \"tipo\": \"DEBITO\",\n    \"valor\": 50.00,\n    \"dataHora\": \"2026-07-16T09:10:00\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "7ea78b42-a86a-46ab-b53c-0e0fa7ecdf46",
+          "body": "{\n  \"erro\": \"TIPO_TRANSACAO_INVALIDO\",\n  \"mensagem\": \"Tipo de transação inválido; use RECARGA ou DEBITO\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "d6769af3-5d44-4da9-b0c9-cd3e25a3c1e8"
+    },
+    {
+      "type": "route",
+      "uuid": "ccf5603f-9f44-472d-a047-874adf267030"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [
+    {
+      "uuid": "24354b5f-6ec3-4947-8ef1-a2eb08aad47f",
+      "id": "l6gh",
+      "name": "schema-recarga-valida",
+      "documentation": "",
+      "value": "{\n  \"type\": \"object\",\n  \"required\": [\"valor\"],\n  \"properties\": {\n    \"valor\": {\n      \"type\": \"number\",\n      \"minimum\": 5,\n      \"maximum\": 500\n    }\n  }\n}"
+    }
+  ],
+  "callbacks": []
+}
