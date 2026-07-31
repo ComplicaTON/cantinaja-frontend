@@ -1,3 +1,52 @@
+/*
+  Tema do projeto — aplica a PALETA oficial (README seção 4.1) por cima do Bootstrap.
+  Color Hunt: https://colorhunt.co/palette/f4e7e1ff9b45d5451b521c0d
+*/
+:root {
+  --bs-primary: #ff9b45; /* Laranja  */
+  --bs-primary-rgb: 255, 155, 69;
+  --bs-secondary: #d5451b; /* Terracota */
+  --bs-secondary-rgb: 213, 69, 27;
+  --bs-light: #f4e7e1; /* Creme    */
+  --bs-light-rgb: 244, 231, 225;
+  --bs-dark: #521c0d; /* Marrom   */
+  --bs-dark-rgb: 82, 28, 13;
+
+  --bs-body-bg: #f4e7e1;
+  --bs-body-color: #521c0d;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.btn-primary {
+  --bs-btn-color: #ffffff;
+  --bs-btn-bg: #ff9b45;
+  --bs-btn-border-color: #ff9b45;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: #d5451b;
+  --bs-btn-hover-border-color: #d5451b;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-active-bg: #d5451b;
+  --bs-btn-active-border-color: #d5451b;
+  --bs-btn-disabled-color: #ffffff;
+  --bs-btn-disabled-bg: #ff9b45;
+  --bs-btn-disabled-border-color: #ff9b45;
+}
+
+.btn-secondary {
+  --bs-btn-color: #ffffff;
+  --bs-btn-bg: #d5451b;
+  --bs-btn-border-color: #d5451b;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: #521c0d;
+  --bs-btn-hover-border-color: #521c0d;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-active-bg: #521c0d;
+  --bs-btn-active-border-color: #521c0d;
+}
+
 .card-body-listar-itens {
     background-color: rgba(250, 239, 236, 0.911);
     color: #521c0d;
@@ -17,13 +66,6 @@
     background-color: #f4e7e1;
     color: #521c0d;
     font-family: "Inter", system-ui, sans-serif;
-}
-
-:root {
-    --bs-primary: #ff9b45;
-    --bs-secondary: #d5451b;
-    --bs-light: #f4e7e1;
-    --bs-dark: #521c0d;
 }
 
 .form-select-listar-itens {
@@ -93,4 +135,3 @@
 .texto-card {
     font-weight: 400;
     font-size: 16px;
-}
