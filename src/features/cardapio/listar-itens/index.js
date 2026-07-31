@@ -1,5 +1,5 @@
 import { CONFIG_API } from "../../../../lib/config.js";
-import { botaoEditar } from "../editar-item/editar.js";
+// import { botaoEditar } from "../editar-item/editar.js";
 
 const url = `${CONFIG_API.cardapio.baseUrl}/api/items`;
 
@@ -71,7 +71,7 @@ function renderizarInterface(produtos) {
         }
 
         const nomeDoPrato = document.createElement('h4');
-        nomeDoPrato.classList.add('card-title', 'mb-0');
+        nomeDoPrato.classList.add('card-title', 'titulo-card', 'mb-0');
         nomeDoPrato.textContent = produto.titulo;
         nomeDoPrato.setAttribute('id', 'nome-do-prato');
 
@@ -84,12 +84,12 @@ function renderizarInterface(produtos) {
         }).format(produto.preco);
 
         const preco = document.createElement('p');
-        preco.classList.add('card-text', 'mb-0', 'flex-grow-1');
+        preco.classList.add('card-text', 'mb-0', 'flex-grow-1', 'texto-card');
         preco.textContent = precoFormatado;
         preco.setAttribute('id', 'preco');
         
         cardFooter.appendChild(preco);
-        cardFooter.appendChild(botaoEditar(produto));
+        // cardFooter.appendChild(botaoEditar(produto));
 
         headerDoCard.appendChild(nomeDoPrato);
         headerDoCard.appendChild(badgeDeDisponibilidade);
