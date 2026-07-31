@@ -76,10 +76,10 @@ export function abrirModal (produto){
             const cardExistente = document.getElementById(`card-${produtoAtualizado.id}`)
 
             if(cardExistente) {
-                const elementoNome = cardExistente.querySelector(".card-title")
+                const elementoNome = cardExistente.querySelector("#nome-do-prato")
                 if (elementoNome) elementoNome.textContent = produtoAtualizado.nome
 
-                const elementoPreco = cardExistente.querySelector(".priceValue")
+                const elementoPreco = cardExistente.querySelector("#preco")
                 if (elementoPreco) {
                     elementoPreco.textContent = `R$ ${Number(produtoAtualizado.preco).toLocaleString("pt-BR", {
                     minimumFractionDigits: 2,

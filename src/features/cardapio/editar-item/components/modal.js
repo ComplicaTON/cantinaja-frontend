@@ -1,6 +1,4 @@
-import { renderizarHtml } from "../../../../shared/utils.js";
-
-const modal =
+export const modalEdit =
 `<div class="modal fade" id="modalEditar" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
    aria-labelledby="tituloModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -62,5 +60,3 @@ const modal =
     </div>
   </div>
 </div>`
-
-renderizarHtml(modal, 'renderizarModal')

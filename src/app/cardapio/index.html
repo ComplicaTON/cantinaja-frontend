@@ -48,7 +48,9 @@
     <script type="module">
         import { renderizarHtml } from "/shared/utils.js";
         import { navbarHtml } from "/shared/navbar.js";
+        import { modalEdit } from "/src/features/cardapio/editar-item/components/modal.js";
 
+        renderizarHtml(modalEdit, "renderizarModal");
         renderizarHtml(navbarHtml, "navbar");
     </script>
 
