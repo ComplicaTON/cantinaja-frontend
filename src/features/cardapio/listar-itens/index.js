@@ -87,17 +87,6 @@ function renderizarInterface(produtos) {
         preco.classList.add('card-text', 'mb-0', 'flex-grow-1');
         preco.textContent = precoFormatado;
         preco.setAttribute('id', 'preco');
-
-        const botaoEditar = document.createElement('button');
-        botaoEditar.classList.add('btn', 'btn-primary', 'card_secondary_action', 'mb-0', 'ms-auto');
-        botaoEditar.setAttribute('type', 'button');
-        botaoEditar.textContent = 'Editar';
-
-        const botaoDisponibilidade = document.createElement('button');
-        botaoDisponibilidade.classList.add('btn', 'btn-primary', 'card_secondary_action', 'mb-0', 'ms-auto', 'me-1');
-        botaoDisponibilidade.setAttribute('type', 'button');
-        botaoDisponibilidade.textContent = 'Disponibilidade';
-
         
         cardFooter.appendChild(preco);
         cardFooter.appendChild(botaoEditar(produto));
