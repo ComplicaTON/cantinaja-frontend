@@ -1,4 +1,5 @@
 import { CONFIG_API } from "../../../../lib/config.js";
+import { botaoEditar } from "../editar-item/editar.js";
 
 const url = `${CONFIG_API.cardapio.baseUrl}/api/items`;
 
@@ -99,8 +100,7 @@ function renderizarInterface(produtos) {
 
         
         cardFooter.appendChild(preco);
-        // cardFooter.appendChild(botaoDisponibilidade);
-        // cardFooter.appendChild(botaoEditar);
+        cardFooter.appendChild(botaoEditar(produto));
 
         headerDoCard.appendChild(nomeDoPrato);
         headerDoCard.appendChild(badgeDeDisponibilidade);
