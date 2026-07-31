@@ -37,6 +37,8 @@
         <section id="feature-cadastrar-item"></section>
     </main>
 
+    <div id="renderizarModal"></div>
+
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
@@ -46,7 +48,9 @@
     <script type="module">
         import { renderizarHtml } from "/shared/utils.js";
         import { navbarHtml } from "/shared/navbar.js";
+        import { modalEdit } from "/src/features/cardapio/editar-item/components/modal.js";
 
+        renderizarHtml(modalEdit, "renderizarModal");
         renderizarHtml(navbarHtml, "navbar");
     </script>
 
@@ -54,6 +58,7 @@
         type="module"
         src="/src/features/cardapio/cadastrar-item/cadastrar-item.js">
     </script>
+
 
 </body>
 </html>
