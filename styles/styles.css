@@ -21,26 +21,9 @@ a {
     background-color: color-mix(in oklab, #f4e7e1 95%, black);;
 }
 
-.card-link::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    cursor: pointer;
-    border: 1px solid color-mix(in oklab, #521c0d 30%, white);;
-    border-radius: 4px;
-    transition: border-color 200ms;
-}
-
-.card-link:focus {
-    outline: none;
-}
-
-.card-link:hover::before,
-.card-title:focus-visible::before {
-    border-color: color-mix(in oklab, #521c0d 30%, white);
-    border-radius: 4px;
-    outline: none;
+.card_secondary_action:hover,
+.card_secondary_action:focus-visible {
+  border-color: none;
 }
 
 body {

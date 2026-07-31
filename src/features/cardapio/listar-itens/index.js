@@ -54,7 +54,7 @@ function renderizarInterface(produtos) {
         corpoDoCard.setAttribute('id', `card-${produto.id}`);
 
         const headerDoCard = document.createElement('header');
-        headerDoCard.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'mb-2');
+        headerDoCard.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'mb-3');
 
         const badgeDeDisponibilidade = document.createElement('span');
         if (produto.badge === true) {
@@ -69,24 +69,13 @@ function renderizarInterface(produtos) {
             corpoDoCard.classList.add('card-body-disabled')
         }
 
-        const cardHover = document.createElement('a');
-        cardHover.classList.add('card-link');
-        cardHover.setAttribute('href', '#');
-        cardHover.setAttribute('role', 'button');
-        cardHover.setAttribute('data-bs-toggle', 'modal');
-        cardHover.setAttribute('data-bs-target', `#Modal-${produto.id}`);
-
         const nomeDoPrato = document.createElement('h4');
         nomeDoPrato.classList.add('card-title', 'mb-0');
         nomeDoPrato.textContent = produto.titulo;
         nomeDoPrato.setAttribute('id', 'nome-do-prato');
 
-        const descricaoDoPrato = document.createElement('p');
-        descricaoDoPrato.classList.add('card-text', 'text-truncate');
-        descricaoDoPrato.textContent = produto.descricao;
-
         const cardFooter = document.createElement('footer');
-        cardFooter.classList.add('mt-auto');
+        cardFooter.classList.add('d-flex', 'justfy-content-between', 'align-items-center', 'mt-3');
 
         const precoFormatado = new Intl.NumberFormat('pt-BR', {
             style: 'currency',
@@ -94,81 +83,35 @@ function renderizarInterface(produtos) {
         }).format(produto.preco);
 
         const preco = document.createElement('p');
-        preco.classList.add('card-text', 'mb-0');
+        preco.classList.add('card-text', 'mb-0', 'flex-grow-1');
         preco.textContent = precoFormatado;
         preco.setAttribute('id', 'preco');
 
-        const modal = document.createElement('li');
-        modal.classList.add('modal', 'fade');
-        modal.setAttribute('id', `Modal-${produto.id}`);
-        modal.setAttribute('tabindex', '-1');
-        modal.setAttribute('aria-hidden', 'true');
+        const botaoEditar = document.createElement('button');
+        botaoEditar.classList.add('btn', 'btn-primary', 'card_secondary_action', 'mb-0', 'ms-auto');
+        botaoEditar.setAttribute('type', 'button');
+        botaoEditar.textContent = 'Editar';
 
-        const tipoDeModal = document.createElement('article');
-        tipoDeModal.classList.add('modal-dialog', 'modal-dialog-centered', 'modal-fullscreen-lg-down');
+        const botaoDisponibilidade = document.createElement('button');
+        botaoDisponibilidade.classList.add('btn', 'btn-primary', 'card_secondary_action', 'mb-0', 'ms-auto', 'me-1');
+        botaoDisponibilidade.setAttribute('type', 'button');
+        botaoDisponibilidade.textContent = 'Disponibilidade';
 
-        const conteudoDoModal = document.createElement('div');
-        conteudoDoModal.classList.add('modal-content');
-
-        const modalHeader = document.createElement('header');
-        modalHeader.classList.add('modal-header');
-
-        const tituloModal = document.createElement('h4');
-        tituloModal.classList.add('modal-title', 'fs-5');
-        tituloModal.textContent = produto.titulo;
-
-        const botaoDeFechar = document.createElement('button');
-        botaoDeFechar.classList.add('btn-close');
-        botaoDeFechar.setAttribute('type', 'button');
-        botaoDeFechar.setAttribute('data-bs-dismiss', 'modal');
-        botaoDeFechar.setAttribute('aria-label', 'Close');
-
-        const corpoDoModal = document.createElement('div');
-        corpoDoModal.classList.add('modal-body');
-
-        const descricaoModal = document.createElement('p');
-        descricaoModal.textContent = produto.descricao;
-
-        const modalFooter = document.createElement('footer');
-        modalFooter.classList.add('modal-footer', 'me-auto');
-
-        const precoNoModal = document.createElement('p');
-        precoNoModal.textContent = precoFormatado;
-
+        
         cardFooter.appendChild(preco);
+        // cardFooter.appendChild(botaoDisponibilidade);
+        // cardFooter.appendChild(botaoEditar);
 
-        if (produto.badge === true) {
-            cardHover.appendChild(nomeDoPrato);
-            headerDoCard.appendChild(cardHover);
-
-        } else {
-            headerDoCard.appendChild(nomeDoPrato);
-        }
-
+        headerDoCard.appendChild(nomeDoPrato);
         headerDoCard.appendChild(badgeDeDisponibilidade);
 
         corpoDoCard.appendChild(headerDoCard);
-        corpoDoCard.appendChild(descricaoDoPrato);
         corpoDoCard.appendChild(cardFooter);
 
         itemDaLista.appendChild(corpoDoCard);
         colunaDoCard.appendChild(itemDaLista);
         itensDoCardapio.appendChild(colunaDoCard);
-
-        modalFooter.appendChild(precoNoModal);
-        corpoDoModal.appendChild(descricaoModal);
-        modalHeader.appendChild(tituloModal);
-        modalHeader.appendChild(botaoDeFechar);
-
-        conteudoDoModal.appendChild(modalHeader);
-        conteudoDoModal.appendChild(corpoDoModal);
-        conteudoDoModal.appendChild(modalFooter);
-
-        tipoDeModal.appendChild(conteudoDoModal);
-        modal.appendChild(tipoDeModal);
-        listaDeModais.appendChild(modal);
-
-        
+ 
 
     });
 
