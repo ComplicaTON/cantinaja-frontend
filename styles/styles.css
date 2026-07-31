@@ -3,14 +3,11 @@ a {
     text-decoration: none;
 }
 
-.card-text {
-    max-width: 530px;
-}
-
-.card-body {
+.card-body-listar-itens {
     background-color: rgba(250, 239, 236, 0.911);
     color: #521c0d;
     border-radius: 4px;
+    border:1px solid color-mix(in oklab, #521c0d 30%, white);
 }
 
 .card-body-disabled {
@@ -19,11 +16,6 @@ a {
     border-radius: 4px;
     border: 1px solid color-mix(in oklab, #521c0d 30%, white);
     background-color: color-mix(in oklab, #f4e7e1 95%, black);;
-}
-
-.card_secondary_action:hover,
-.card_secondary_action:focus-visible {
-  border-color: none;
 }
 
 body {
@@ -39,7 +31,7 @@ body {
     --bs-dark: #521c0d;
 }
 
-.form-select {
+.form-select-listar-itens {
     background-color: rgba(250, 239, 236, 0.911);
     border-color: color-mix(in oklab, #521c0d 30%, white);
     color: #521c0d;
