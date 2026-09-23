@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Dados simulados da carteira obtidos do mock global
-  const transacoes = window.mockData ? window.mockData.transacoes : [];
+  // Dados simulados recebidos do backend/mock conforme nova estrutura sugerida
+  // Exemplo esperado do mockData: { transacoes: [], custo: 100, recarga: 500 }
+  const mockData = window.mockData || { transacoes: [], custo: 0, recarga: 0 };
+  const transacoes = mockData.transacoes;
 
   // Elementos do DOM - Tela Principal
   const totalRecarregadoEl = document.getElementById("totalRecarregado");
@@ -25,13 +27,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Função para formatar valores em R$
   function formatarMoeda(valor) {
-    return valor.toLocaleString("pt-BR", {
+    return Number(valor).toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
     });
   }
 
-  // Função para formatar a data (YYYY-MM-DD ou YYYY-MM-DDTHH:mm:ss para DD/MM/YYYY)
+  // Função para formatar a data
   function formatarData(dataISO) {
     if (!dataISO) return "";
     const [dataParte] = String(dataISO).split("T");
@@ -42,19 +44,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return dataISO;
   }
 
-  // Calcula os totais e renderiza os cards
+  // NOVA ABORDAGEM: Renderiza os cards utilizando os totais vindos do backend
   function carregarResumo() {
-    let totalRecarregado = 0;
-    let totalGasto = 0;
-
-    transacoes.forEach((item) => {
-      if (item.tipo === "RECARGA") {
-        totalRecarregado += item.valor;
-      } else if (item.tipo === "DEBITO") {
-        totalGasto += item.valor;
-      }
-    });
-
+    // Evita o forEach e utiliza as propriedades "custo" e "recarga" enviadas pela API/Mock
+    const totalRecarregado = mockData.recarga || 0;
+    const totalGasto = mockData.custo || 0;
+    
+    // O saldo atual é a diferença (supondo que o saldo total da carteira seja isso)
     const saldoAtual = totalRecarregado - totalGasto;
 
     if (totalRecarregadoEl)
