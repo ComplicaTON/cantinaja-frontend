@@ -12,6 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const tabelaModalCorpoEl = document.getElementById("tabelaModalCorpo");
   const botoesFiltro = document.querySelectorAll("#filtrosExtrato button");
 
+  // Função para sanitizar strings e prevenir ataques de XSS
+  function escaparHtml(str) {
+    if (!str) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
   // Função para formatar valores em R$
   function formatarMoeda(valor) {
     return valor.toLocaleString("pt-BR", {
@@ -20,10 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Função para formatar a data (YYYY-MM-DD para DD/MM/YYYY)
+  // Função para formatar a data (YYYY-MM-DD ou YYYY-MM-DDTHH:mm:ss para DD/MM/YYYY)
   function formatarData(dataISO) {
     if (!dataISO) return "";
-    const partes = dataISO.split("-");
+    const [dataParte] = String(dataISO).split("T");
+    const partes = dataParte.split("-");
     if (partes.length === 3) {
       return `${partes[2]}/${partes[1]}/${partes[0]}`;
     }
@@ -51,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (saldoAtualEl) saldoAtualEl.textContent = formatarMoeda(saldoAtual);
   }
 
-  // Gera as linhas HTML para as tabelas
+  // Gera as linhas HTML para as tabelas com escaping de segurança
   function criarLinhasTabela(lista) {
     if (!lista || lista.length === 0) {
       return `<tr><td colspan="3" class="text-center text-muted">Nenhuma transação encontrada.</td></tr>`;
@@ -63,23 +75,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const badgeClasse = isRecarga ? "bg-success" : "bg-danger";
         const sinal = isRecarga ? "+" : "-";
 
+        const tipoEscapado = escaparHtml(item.tipo);
+        const dataFormatada = escaparHtml(formatarData(item.data));
+
         return `
           <tr>
-            <td><span class="badge ${badgeClasse}">${item.tipo}</span></td>
+            <td><span class="badge ${badgeClasse}">${tipoEscapado}</span></td>
             <td class="fw-semibold ${isRecarga ? "text-success" : "text-danger"}">
               ${sinal} ${formatarMoeda(item.valor)}
             </td>
-            <td class="text-secondary">${formatarData(item.data)}</td>
+            <td class="text-secondary">${dataFormatada}</td>
           </tr>
         `;
       })
       .join("");
   }
 
-  // Renderiza a tabela inicial (limitada às 5 mais recentes)
+  // Renderiza a tabela inicial (ordenada por data e limitada às 5 mais recentes)
   function renderizarTabelaPrincipal() {
     if (!tabelaCorpoEl) return;
-    const ultimasTransacoes = transacoes.slice(0, 5);
+    const ultimasTransacoes = [...transacoes]
+      .sort((a, b) => String(b.data).localeCompare(String(a.data)))
+      .slice(0, 5);
+
     tabelaCorpoEl.innerHTML = criarLinhasTabela(ultimasTransacoes);
   }
 
