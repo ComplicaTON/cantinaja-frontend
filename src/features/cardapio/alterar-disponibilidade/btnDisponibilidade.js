@@ -1,10 +1,10 @@
-import { alterarDisponibilidade } from "./alterarDisponibilidade";
+import { alterarDisponibilidade } from "./alterarDisponibilidade.js";
 
-export function botaoDisponibilidade(produto, corpoDoCard){
+export function botaoDisponibilidade(produto, corpoDoCard, elementoBadge){
 
     const btnDisponibilidade = document.createElement('button');
     
-    if(produto.disponibilidade){
+    if(produto.disponivel){
         btnDisponibilidade.className = 'btn btn-primary mb-0 ms-auto';
         btnDisponibilidade.textContent = 'Marcar Indisponível';
 
@@ -13,8 +13,12 @@ export function botaoDisponibilidade(produto, corpoDoCard){
         btnDisponibilidade.textContent = 'Marcar Disponível';
     }
 
-    btnDisponibilidade.addEventListener("click", () => {
-        alterarDisponibilidade(produto, corpoDoCard, btnDisponibilidade)
+    btnDisponibilidade.addEventListener("click", async () => {
+        try {
+        await alterarDisponibilidade(produto, corpoDoCard, btnDisponibilidade, elementoBadge);
+        } catch (error) {
+            alert('Não foi possivel alterar a disponibilidade');
+        }
     })
 
     return btnDisponibilidade;

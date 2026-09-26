@@ -1,11 +1,13 @@
 import { CONFIG_API } from "/lib/config.js";
 
-export async function alterarDisponibilidade(produto, corpoDoCard, elementoBotao){
+export async function alterarDisponibilidade(produto, corpoDoCard, elementoBotao, elementoBadge){
+
+    elementoBotao.disabled = true;
 
     try {
-    const novoStatus = !produto.disponibilidade;
+    const novoStatus = !produto.disponivel;
     const url = `${CONFIG_API.cardapio.baseUrl}/api/items/${produto.id}`;
-
+    
 
     const resposta = await fetch (url,{
         method: 'PATCH',
@@ -13,7 +15,7 @@ export async function alterarDisponibilidade(produto, corpoDoCard, elementoBotao
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            disponibilidade : novoStatus
+            disponivel : novoStatus
         })
     });
 
@@ -22,8 +24,8 @@ export async function alterarDisponibilidade(produto, corpoDoCard, elementoBotao
         if (!respostaGet.ok) throw new Error('Não foi possivel sincronizar.');
 
         const produtoAtualizado = await respostaGet.json();
-        produto.disponibilidade = produtoAtualizado.disponibilidade;
-        atualizarInterface(produto, corpoDoCard, elementoBotao);
+        produto.disponivel = produtoAtualizado.disponivel;
+        atualizarInterface(produto, corpoDoCard, elementoBotao, elementoBadge);
 
         alert('Este item já foi modificado. O produto foi sincronizado');
         return;
@@ -33,23 +35,23 @@ export async function alterarDisponibilidade(produto, corpoDoCard, elementoBotao
         throw new Error(`Erro ao alterar disponibilidade ${resposta.status}`);
     }
 
-    produto.disponibilidade = novoStatus;
-    atualizarInterface(produto, corpoDoCard, elementoBotao);
+    produto.disponivel = novoStatus;
+    atualizarInterface(produto, corpoDoCard, elementoBotao, elementoBadge);
     
     } catch (error) {
         console.error("Erro ao alterar disponibilidade:", error);
         throw error;
+    } finally {
+        elementoBotao.disabled = false;
     }
 }
 
-function atualizarInterface(produto, corpoDoCard, elementoBotao) {
+function atualizarInterface(produto, corpoDoCard, elementoBotao, elementoBadge) {
     if (!corpoDoCard) {
         return;
     }
 
-    const elementoBadge = corpoDoCard.querySelector("#badge");
-
-    if (produto.disponibilidade) {
+    if (produto.disponivel) {
         
         if (elementoBadge) {
             elementoBadge.textContent = 'Disponível';
@@ -64,7 +66,7 @@ function atualizarInterface(produto, corpoDoCard, elementoBotao) {
         corpoDoCard.classList.remove('card-body-disabled');
 
 
-    } else if (!produto.disponibilidade){
+    } else {
 
         if (elementoBadge) {
             elementoBadge.textContent = 'Indisponível'
