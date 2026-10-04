@@ -4,7 +4,12 @@ const SELETORES = Object.freeze({
   botao: "[data-recarga-botao]",
   textoBotao: "[data-recarga-texto-botao]",
   carregamento: "[data-recarga-carregamento]",
+  icone: "[data-recarga-icone]",
+  status: "[data-recarga-status]",
   feedback: "[data-recarga-feedback]",
+  toast: "[data-recarga-toast]",
+  mensagemToast: "[data-recarga-toast-mensagem]",
+  iconeToast: "[data-recarga-toast-icone]",
 });
 
 const MARCACAO_FORMULARIO = `
@@ -13,7 +18,7 @@ const MARCACAO_FORMULARIO = `
       aria-labelledby="titulo-recarregar"
       data-recarga-componente
     >
-      <div class="card cj-recarregar__card shadow-sm">
+      <div class="card cj-recarregar__card shadow-sm border-0">
         <div class="card-body p-3 p-md-4">
           <h2 id="titulo-recarregar" class="h4 fw-semibold mb-3">
             Recarregar carteira
@@ -52,14 +57,12 @@ const MARCACAO_FORMULARIO = `
 
                 <p
                   id="feedback-valor-recarga"
-                  class="invalid-feedback mb-0"
-                  aria-live="polite"
-                  aria-atomic="true"
+                  class="visually-hidden"
                   data-recarga-feedback
                 ></p>
               </div>
 
-              <div class="col-12 col-md-4 d-grid">
+              <div class="col-12 col-md-4 d-grid align-self-start">
                 <button
                   class="btn cj-recarregar__botao"
                   type="submit"
@@ -95,6 +98,34 @@ const MARCACAO_FORMULARIO = `
               data-recarga-status
             ></div>
           </form>
+
+          <div
+            class="toast-container position-fixed top-0 end-0 p-3"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <div
+              class="toast cj-recarregar__toast border-0"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              data-bs-autohide="true"
+              data-bs-delay="3000"
+              data-recarga-toast
+            >
+              <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center gap-2">
+                  <i
+                    class="fa-solid fa-circle-info"
+                    aria-hidden="true"
+                    data-recarga-toast-icone
+                  ></i>
+
+                  <span data-recarga-toast-mensagem></span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
