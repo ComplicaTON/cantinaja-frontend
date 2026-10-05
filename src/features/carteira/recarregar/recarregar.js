@@ -1,11 +1,12 @@
 import {
-  criarFormularioRecarga,
+  MARCACAO_FORMULARIO,
   SELETORES_FORMULARIO_RECARGA,
 } from "./components/formulario-recarga.js";
 import { realizarRecarga, ErroRecarga } from "./services/recarga-service.js";
 import { validarValorRecarga } from "./validators/recarga-validator.js";
+import { renderizarHtml } from "/shared/utils.js";
 
-const SELETOR_CONTAINER_RECARGA = "#recarregar-container";
+const SELETOR_CONTAINER_RECARGA = "recarregar-container";
 const EVENTO_RECARGA_REALIZADA = "carteira:recarga-realizada";
 
 const FORMATADOR_BRL = new Intl.NumberFormat("pt-BR", {
@@ -263,19 +264,9 @@ function configurarFormulario(elementos) {
 }
 
 function montarFeatureRecarga() {
-  const container = document.querySelector(SELETOR_CONTAINER_RECARGA);
+  renderizarHtml(MARCACAO_FORMULARIO, SELETOR_CONTAINER_RECARGA);
 
-  if (!container) {
-    console.error(
-      `[Carteira/Recarga] Container não encontrado: ${SELETOR_CONTAINER_RECARGA}`,
-    );
-
-    return;
-  }
-
-  const componente = criarFormularioRecarga();
-
-  container.replaceChildren(componente);
+  const componente = document.querySelector("#recarregar-container");
 
   configurarFormulario(obterElementosFormulario(componente));
 }
