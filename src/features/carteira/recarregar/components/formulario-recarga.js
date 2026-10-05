@@ -12,15 +12,15 @@ const SELETORES = Object.freeze({
   iconeToast: "[data-recarga-toast-icone]",
 });
 
-const MARCACAO_FORMULARIO = `
+export const MARCACAO_FORMULARIO = `
     <section
-      class="cj-recarregar"
+      class="bg-primary"
       aria-labelledby="titulo-recarregar"
       data-recarga-componente
     >
-      <div class="card cj-recarregar__card shadow-sm border-0">
+      <div class="card bg-primary shadow-sm border-0">
         <div class="card-body p-3 p-md-4">
-          <h2 id="titulo-recarregar" class="h4 fw-semibold mb-3">
+          <h2 id="titulo-recarregar" class="text-light h4 fw-semibold mb-3">
             Recarregar carteira
           </h2>
 
@@ -29,7 +29,7 @@ const MARCACAO_FORMULARIO = `
             data-recarga-formulario
             novalidate
           >
-            <label for="valor-recarga" class="form-label fw-medium">
+            <label for="valor-recarga" class="text-light form-label fw-medium">
               Valor da recarga em reais
             </label>
 
@@ -64,7 +64,7 @@ const MARCACAO_FORMULARIO = `
 
               <div class="col-12 col-md-4 d-grid align-self-start">
                 <button
-                  class="btn cj-recarregar__botao"
+                  class="btn btn-secondary"
                   type="submit"
                   aria-busy="false"
                   data-recarga-botao
@@ -86,7 +86,7 @@ const MARCACAO_FORMULARIO = `
               </div>
             </div>
 
-            <p id="ajuda-valor-recarga" class="form-text mb-0 fw-medium">
+            <p id="ajuda-valor-recarga" class="text-light form-text mb-0 fw-medium">
               Informe um valor entre R$ 5,00 e R$ 500,00.
             </p>
 
@@ -105,7 +105,7 @@ const MARCACAO_FORMULARIO = `
             aria-atomic="true"
           >
             <div
-              class="toast cj-recarregar__toast border-0"
+              class="toast bg-light border-0"
               role="status"
               aria-live="polite"
               aria-atomic="true"
@@ -132,17 +132,3 @@ const MARCACAO_FORMULARIO = `
 `;
 
 export const SELETORES_FORMULARIO_RECARGA = SELETORES;
-
-export function criarFormularioRecarga() {
-  const template = document.createElement("template");
-
-  template.innerHTML = MARCACAO_FORMULARIO.trim();
-
-  const componente = template.content.firstElementChild;
-
-  if (!componente) {
-    throw new Error("Não foi possível criar o componente de recarga.");
-  }
-
-  return componente;
-}
