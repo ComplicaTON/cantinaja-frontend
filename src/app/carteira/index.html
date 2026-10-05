@@ -20,6 +20,7 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
+    <link href="/src/features/carteira/recarregar/recarregar.css" rel="stylesheet" />
     <link href="/styles/styles.css" rel="stylesheet" />
   </head>
   <body>
@@ -27,7 +28,11 @@
     <div id="navbar"></div>
 
     <main class="container mt-4">
+
+      <section id="recarregar-container" class="container mt-4"></section>
+
       <section class="bg-light p-3 p-md-4 rounded" id="CARD_RESUMO"></section>
+
     </main>
 
     <script
@@ -35,6 +40,8 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
+
+    <script type="module" src="../../features/carteira/recarregar/recarregar.js"></script>
 
     <script type="module" src="/src/features/carteira/resumo/resumo.js"></script>
     
