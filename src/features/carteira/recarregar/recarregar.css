@@ -1,0 +1,15 @@
+.cj-recarregar__toast--sucesso {
+  border-left: 0.375rem solid #198754 !important;
+}
+
+.cj-recarregar__toast--erro {
+  border-left: 0.375rem solid #d5451b !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cj-recarregar__botao,
+  .cj-recarregar__botao .spinner-border {
+    transition: none;
+    animation: none;
+  }
+}

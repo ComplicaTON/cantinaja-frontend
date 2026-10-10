@@ -14,7 +14,8 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
       rel="stylesheet"
     />
-    <link href="/styles/style.css" rel="stylesheet" />
+    <link href="/src/features/carteira/recarregar/recarregar.css" rel="stylesheet" />
+    <link href="/styles/styles.css" rel="stylesheet" />
   </head>
 
   <body class="bg-light p-4">
@@ -22,7 +23,12 @@
     <div id="navbar"></div>
 
     <main class="container mt-4">
+      <section class="bg-light p-3 p-md-4 rounded" id="CARD_SALDO"></section>
+
+      <section id="recarregar-container"></section>
+
       <section class="bg-light p-3 p-md-4 rounded" id="CARD_RESUMO"></section>
+
     </main>
 
     <div
@@ -162,6 +168,11 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       crossorigin="anonymous"
     ></script>
+
+    <script type="module" src="../../features/carteira/recarregar/recarregar.js"></script>
+
+    <script type="module" src="/src/features/carteira/resumo/resumo.js"></script>
+    <script type="module" src="/src/features/carteira/saldo/saldo.js"></script>
     
     <script type="module" src="/src/features/carteira/resumo/resumo.js"></script>
     <script type="module">
