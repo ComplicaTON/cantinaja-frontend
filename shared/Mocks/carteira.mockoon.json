@@ -120,6 +120,37 @@
       "responseMode": null,
       "streamingMode": null,
       "streamingInterval": 0
+    },
+    {
+      "uuid": "5f77fcd7-33a2-4d42-87bf-6f86290184f1",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/carteiras/1",
+      "responses": [
+        {
+          "uuid": "227c6b11-c1e2-432d-a7fb-993526e99943",
+          "body": "{\n  \"alunoId\": 1,\n  \"saldo\": 50.00,\n  \"saldoBaixo\": true\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     }
   ],
   "rootChildren": [
@@ -130,6 +161,10 @@
     {
       "type": "route",
       "uuid": "ccf5603f-9f44-472d-a047-874adf267030"
+    },
+    {
+      "type": "route",
+      "uuid": "5f77fcd7-33a2-4d42-87bf-6f86290184f1"
     }
   ],
   "proxyMode": false,
