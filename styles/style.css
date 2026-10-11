@@ -47,6 +47,50 @@ body {
   --bs-btn-active-border-color: #521c0d;
 }
 
+.btn-custom {
+  background-color: #FF9B45;
+  color: #212529;
+  border: 1px solid #F4E7E1;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-custom:hover {
+  background-color: #e08332;
+  color: #212529;
+  border-color: #F4E7E1;
+}
+
+.btn-outline-custom {
+  color: #212529;
+  border-color: #F4E7E1;
+  background-color: transparent;
+}
+
+.btn-outline-custom:hover,
+.btn-outline-custom.active {
+  background-color: #FF9B45;
+  border-color: #F4E7E1;
+  color: #212529;
+  font-weight: 600;
+}
+
+.container-card {
+  border: 1px solid #F4E7E1;
+}
+
+.card-stat {
+  border: 1px solid #F4E7E1 !important;
+}
+
+.table th,
+.table td {
+  border-color: #F4E7E1;
+}
+
+.modal-content-custom {
+  border: 1px solid #F4E7E1;
+}
 .card-body-listar-itens {
     background-color: rgba(250, 239, 236, 0.911);
     color: #521c0d;
@@ -135,3 +179,4 @@ body {
 .texto-card {
     font-weight: 400;
     font-size: 16px;
+}
